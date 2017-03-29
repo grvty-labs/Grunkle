@@ -1,2 +1,2 @@
 # Grunkle
-React Web and Native components
+JavaScript React Web and Native components
