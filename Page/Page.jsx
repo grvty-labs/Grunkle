@@ -1,13 +1,15 @@
 'use strict';
 import React, { Component } from 'react';
-import SideImage from './components/SideImage';
-import Hero from './components/Hero';
-import Header from './components/Header';
-import CenteredText from './components/CenteredText';
-import TextColumn from './components/TextColumn';
-import SideEmbended from './components/SideEmbended';
-import TeamList from './components/TeamList';
-import MasonryComponent from './components/Masonry';
+import SideImage from './components/sideimage/SideImage';
+import Hero from './components/hero/Hero';
+import Header from './components/header/Hero';
+import CenteredText from './components/centeredtext/CenteredText';
+import TextColumn from './components/textcolumn/TextColumn';
+import SideEmbended from './components/sideembended/SideEmbended';
+import TeamList from './components/teamlist/TeamList';
+import MasonryComponent from './components/masonry/Masonry';
+import Post from './components/posts/Post';
+import Roll from './components/rolls/Roll';
 
 class Page extends Component {
 
