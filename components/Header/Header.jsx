@@ -35,6 +35,7 @@ class Header extends Component {
     return (
       <div className = 'header' style = { background }>
         <div className = 'content'>
+          <h3>{ this.props.value.subtitle }</h3>
           <h2>{ this.props.value.title }</h2>
           <span>{ this.props.value.paragraph }</span>
           <div className = { 'cta-container' + cta }>
