@@ -30,10 +30,17 @@ class Hero extends Component {
       columns = '-two-column';
     }
 
-    let background = {
-      backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-      backgroundImage: this.props.value.decoration.background_image,
-    };
+    let background;
+    if (this.props.value.decoration.background_image != null) {
+      background = {
+        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+        backgroundImage: 'url(' + this.props.value.decoration.background_image.thumbs.original + ')',
+      };
+    }else {
+      background = {
+        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+      };
+    }
 
     return (
       <div className = 'hero' style = {background}>
