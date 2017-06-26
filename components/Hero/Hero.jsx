@@ -46,7 +46,7 @@ class Hero extends Component {
       <div className = 'hero' style = {background}>
         <div className = { 'container' + columns }>
           <h3>{ this.props.value.subtitle}</h3>
-          <h1>{ this.props.value.title }</h1>
+          <h2>{ this.props.value.title }</h2>
           <h4>{ this.props.value.paragraph }</h4>
           <div className = {'cta-container' + cta }>
             <a href = { this.props.value.cta.link }>
