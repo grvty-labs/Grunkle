@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import SideImage from '../components/SideImage/SideImage';
 import Hero from '../components/Hero/Hero';
-import Header from '../components/Header/Hero';
+import Header from '../components/Header/Header';
 import CenteredText from '../components/CenteredText/CenteredText';
 import TextColumn from '../components/TextColumn/TextColumn';
-import SideEmbended from '../components/SideEmbended/SideEmbended';
+import SideEmbended from '../components/SideEmbbeded/SideEmbbeded';
 import TeamList from '../components/TeamList/TeamList';
 import MasonryComponent from '../components/Masonry/Masonry';
 import Post from '../components/Posts/post';

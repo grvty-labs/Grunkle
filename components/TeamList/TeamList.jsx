@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { TEAM_LIST_GROUPSIZE } from '../../constants';
+import { TEAM_LIST_GROUPSIZE } from '../../../constants';
 
 class Team extends Component {
   constructor(props) {
