@@ -26,7 +26,7 @@ class Hero extends Component {
     }
 
     let columns = '-one-column';
-    if ((this.props.value.form != 'none') || (this.props.value.image != 'null'))  {
+    if ((this.props.value.form != 'none') || (this.props.value.image != null))  {
       columns = '-two-column';
     }
 
