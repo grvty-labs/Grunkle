@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import Post from './Post.js';
+import Post from './post.js';
 
 class Roll extends Component {
   render() {
