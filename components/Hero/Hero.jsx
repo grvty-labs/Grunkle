@@ -15,7 +15,7 @@ class Hero extends Component {
     }
 
     let columns = '-one-column';
-    if (this.props.value.form != 'none') {
+    if ((this.props.value.form != 'none') || (this.props.value.image != null))  {
       columns = '-two-column';
     }
 
@@ -44,7 +44,12 @@ class Hero extends Component {
           </div>
         </div>
         <div className = { 'container' + columns }>
-
+          <picture>
+            <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
+            <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
+            <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
+            <img src = { this.props.value.image.thumbs.original }/>
+          </picture>
         </div>
       </div>
     );
