@@ -8,8 +8,6 @@ import TextColumn from '../components/TextColumn/TextColumn';
 import SideEmbended from '../components/SideEmbbeded/SideEmbbeded';
 import TeamList from '../components/TeamList/TeamList';
 import MasonryComponent from '../components/Masonry/Masonry';
-import Post from '../components/Posts/post';
-import Roll from '../components/Rolls/roll';
 
 class Page extends Component {
 
