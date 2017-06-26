@@ -2,6 +2,17 @@
 import React, { Component } from 'react';
 
 class Hero extends Component {
+  renderImage() {
+    return (
+      <picture>
+        <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
+        <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
+        <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
+        <img src = { this.props.value.image.thumbs.original }/>
+      </picture>
+    );
+  }
+
   render() {
     // console.log(this.props.value.decoration.background_image);
     let cta = '-none';
@@ -15,7 +26,7 @@ class Hero extends Component {
     }
 
     let columns = '-one-column';
-    if ((this.props.value.form != 'none') || (this.props.value.image != null))  {
+    if ((this.props.value.form != 'none') || (this.props.value.image != 'null'))  {
       columns = '-two-column';
     }
 
@@ -44,12 +55,7 @@ class Hero extends Component {
           </div>
         </div>
         <div className = { 'container' + columns }>
-          <picture>
-            <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
-            <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
-            <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
-            <img src = { this.props.value.image.thumbs.original }/>
-          </picture>
+          { this.props.value.image != null ? this.renderImage() : null }
         </div>
       </div>
     );
