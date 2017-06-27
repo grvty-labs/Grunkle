@@ -14,9 +14,17 @@ class CenteredText extends Component {
   }
 
   render() {
-    let background = {
-      backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-    };
+    let background;
+    if (this.props.value.decoration.background_image != null) {
+      background = {
+        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+        backgroundImage: 'url(' + this.props.value.decoration.background_image.thumbs.original + ')',
+      };
+    }else {
+      background = {
+        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+      };
+    }
 
     let cta = '-none';
     if (this.props.value.cta.text != '') {
@@ -32,7 +40,7 @@ class CenteredText extends Component {
           { this.props.value.image != null ? this.renderImage() : null }
           <div className = { 'cta-container' + cta }>
             <div className = { this.props.value.cta.breed + cta }>
-              { this.props.value.cta.text }
+              <span>{ this.props.value.cta.text }</span>
             </div>
           </div>
         </div>
