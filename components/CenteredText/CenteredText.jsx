@@ -14,9 +14,17 @@ class CenteredText extends Component {
   }
 
   render() {
-    let background = {
-      backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-    };
+    let background;
+    if (this.props.value.decoration.background_image != null) {
+      background = {
+        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+        backgroundImage: 'url(' + this.props.value.decoration.background_image.thumbs.original + ')',
+      };
+    }else {
+      background = {
+        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+      };
+    }
 
     let cta = '-none';
     if (this.props.value.cta.text != '') {
