@@ -23,7 +23,7 @@ class sideImage extends Component {
     }
 
     let inline;
-    if (this.props.value.inline != 'true') {
+    if (this.props.value.inline == false) {
       inline = {
         alignItems: 'center',
       };

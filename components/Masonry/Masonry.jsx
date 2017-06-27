@@ -12,13 +12,20 @@ class MasonryComponent extends Component {
           <source media = '(min-width:1024px)' srcSet = { element.image.thumbs.sm }/>
           <img src = { element.image.thumbs.original }/>
         </picture>
-        <h6>{ element.title }</h6>
-        <span>{ element.info }</span>
+        <div className = 'information'>
+          <h6>{ element.title }</h6>
+          <span>{ element.info }</span>
+        </div>
       </div>
     ));
 
     return (
       <div className = 'masonry-container'>
+        <div className = 'masonry-header'>
+          <h3>{ this.props.value.subtitle }</h3>
+          <h2>{ this.props.value.title }</h2>
+          <p>{ this.props.value.description }</p>
+        </div>
       <Masonry
         className = {'masonry'}
         elementType = {'div'}
