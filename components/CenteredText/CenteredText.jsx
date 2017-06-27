@@ -32,7 +32,7 @@ class CenteredText extends Component {
           { this.props.value.image != null ? this.renderImage() : null }
           <div className = { 'cta-container' + cta }>
             <div className = { this.props.value.cta.breed + cta }>
-              { this.props.value.cta.text }
+              <span>{ this.props.value.cta.text }</span>
             </div>
           </div>
         </div>
