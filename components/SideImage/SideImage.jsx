@@ -4,15 +4,16 @@ import React, { Component } from 'react';
 class sideImage extends Component {
 
   render() {
+    console.log(this.props);
     let background;
     if (this.props.value.side == 'right') {
       background = {
-          backgroundColor: 'rgba (' + this.props.value.decoration.background_color + ')',
+          backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
           flexDirection: 'row-reverse',
         };
     } else {
       background = {
-          backgroundColor: 'rgba (' + this.props.value.decoration.background_color + ')',
+          backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
         };
     }
 
@@ -41,12 +42,14 @@ class sideImage extends Component {
           </div>
         </div>
         <div className = 'column'>
-          <div className = 'container'>
+          <div className = 'container-text'>
             <h3>{ this.props.value.subtitle }</h3>
             <h2>{ this.props.value.title }</h2>
             <p>{ this.props.value.paragraph }</p>
             <div className = {'cta-container' + cta}>
-              <div className = {this.props.value.cta.breed + cta}>{this.props.value.cta.text}</div>
+              <div className = {this.props.value.cta.breed + cta}>
+                <span>{this.props.value.cta.text}</span>
+              </div>
             </div>
           </div>
         </div>

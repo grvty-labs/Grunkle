@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class Hero extends Component {
   renderImage() {
     return (
-      <picture>
+      <picture className = 'image'>
         <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
         <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
         <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
