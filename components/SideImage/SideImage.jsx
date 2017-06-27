@@ -42,9 +42,9 @@ class sideImage extends Component {
         </div>
         <div className = 'column'>
           <div className = 'container'>
-            <h4>{ this.props.value.subtitle }</h4>
+            <h3>{ this.props.value.subtitle }</h3>
             <h2>{ this.props.value.title }</h2>
-            <span>{ this.props.value.paragraph }</span>
+            <p>{ this.props.value.paragraph }</p>
             <div className = {'cta-container' + cta}>
               <div className = {this.props.value.cta.breed + cta}>{this.props.value.cta.text}</div>
             </div>
