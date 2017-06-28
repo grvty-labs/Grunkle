@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import { TEAM_LIST_GROUPSIZE } from '../../../../constants';
+import Masonry from 'react-masonry-component';
 
 class Team extends Component {
   constructor(props) {
@@ -85,9 +86,15 @@ class Team extends Component {
           <h2>{ this.props.value.title }</h2>
           <p>{ this.props.value.paragraph }</p>
         </div>
-        <div className = 'team'>
-          { team }
-        </div>
+        <Masonry
+          className = {'team'}
+          elementType = {'div'}
+          options = { this.masonry_options }
+          disableImagesLoaded = { false }
+          updateOnEachImageLoad = { false }
+          >
+            { team }
+        </Masonry>
       </div>
     );
   }
