@@ -4,34 +4,27 @@ import React, { Component } from 'react';
 class sideImage extends Component {
 
   render() {
-    console.log(this.props);
-    let background;
-    if (this.props.value.side == 'right') {
-      background = {
-          backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-          flexDirection: 'row-reverse',
-        };
-    } else {
-      background = {
-          backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-        };
-    }
-
     let cta = '-none';
     if (this.props.value.cta.text != '') {
       cta = '-show';
     }
 
-    let inline;
+    let inverse = '';
+    if (this.props.value.side == 'right') {
+      inverse = 'inverse';
+    }
+
+    let background;
     if (this.props.value.inline == false) {
-      inline = {
+      background = {
         alignItems: 'center',
+        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
       };
     }
 
     return (
-      <div className =  'sideImage' style = {{ ...background, ...inline }}>
-        <div className = 'column' style = { inline }>
+      <div className =  { 'sideImage ' + inverse} style = { background }>
+        <div className = 'column'>
           <div className = 'container'>
             <picture>
               <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
