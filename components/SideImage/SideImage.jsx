@@ -9,7 +9,7 @@ class sideImage extends Component {
       cta = '-show';
     }
 
-    let inverse = '';
+    let inverse = 'normal';
     if (this.props.value.side == 'right') {
       inverse = 'inverse';
     }
