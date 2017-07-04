@@ -1,5 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
+import BurgerMenu from 'react-burger-menu';
 
 class Topbar extends Component {
   constructor(props) {
@@ -21,7 +22,21 @@ class Topbar extends Component {
       goToLink,
     } = this.props;
 
+    let lastScrollTop = 0;
 
+    window.addEventListener('scroll', function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop) {
+        document.getElementById('nav-bar-scroll').style.top = '-100%';
+      } else if (st <= 3) {
+        document.getElementById('nav-bar-scroll').style.top = '-100%';
+      } else {
+        // console.log('arriba');
+        document.getElementById('nav-bar-scroll').style.top = '0';
+      }
+
+      lastScrollTop = st;
+    }, false);
 
     let linksRender = links.map((element, index) => (
       <div key = { index } className = 'nav' onClick = { () => {
@@ -34,7 +49,7 @@ class Topbar extends Component {
       </div>
     ));
 
-    let navBarScroll =  <div className = 'nav-bar-scroll'>
+    let navBarScroll =  <div className = 'nav-bar-scroll' id = 'nav-bar-scroll'>
       <img className = 'hamburguer-icon' src = '/static/assets/menu.png' onClick={this.onClick.bind(this)}/>
       <div className = {'navigation' + (this.state.showNavigation ? 'show' : 'hidden')}>
         <div className = 'nav-container'>
@@ -54,8 +69,8 @@ class Topbar extends Component {
 
     return (
       <div className = 'topbar'>
-        { this.state.onScroll == false ? navBarHeader
-        : navBarScroll }
+        { navBarHeader }
+        { navBarScroll }
       </div>
     );
   }
