@@ -15,6 +15,10 @@ class Topbar extends Component {
     this.setState({ showNavigation: !this.state.showNavigation });
   }
 
+  // wrapper() {
+  //   this.state.showNavigation ? document.get
+  // }
+
   render () {
     const {
       links,
@@ -50,7 +54,8 @@ class Topbar extends Component {
 
     let navBarScroll =  <div className = 'nav-bar-scroll' id = 'nav-bar-scroll'>
       <div className = 'left-column'>
-        <img src = '/static/assets/logo.svg'/>
+        <img className = 'logo' src = '/static/assets/logo.svg'/>
+        <img className = 'logo-mobile' src = '/static/assets/logo-mobile.svg'/>
       </div>
       <div className = 'right-column'>
         <h5 className = 'nav'>Hire us</h5>
