@@ -7,7 +7,6 @@ class Topbar extends Component {
     super(props);
     this.state = {
       showNavigation: false,
-      onScroll: false,
     };
   }
 
@@ -31,7 +30,6 @@ class Topbar extends Component {
       } else if (st <= 3) {
         document.getElementById('nav-bar-scroll').style.top = '-100%';
       } else {
-        // console.log('arriba');
         document.getElementById('nav-bar-scroll').style.top = '0';
       }
 
@@ -41,7 +39,7 @@ class Topbar extends Component {
     let linksRender = links.map((element, index) => (
       <div key = { index } className = 'nav' onClick = { () => {
         goToLink(element.id);
-        this.state.onScroll == false ? this.setState({ showNavigation: !this.state.showNavigation })
+        this.state.showNavigation == true ? this.setState({ showNavigation: !this.state.showNavigation })
         : null;
       }
       }>
@@ -50,7 +48,22 @@ class Topbar extends Component {
     ));
 
     let navBarScroll =  <div className = 'nav-bar-scroll' id = 'nav-bar-scroll'>
-      <img className = 'hamburguer-icon' src = '/static/assets/menu.png' onClick={this.onClick.bind(this)}/>
+      <div className = 'left-column'>
+        <img src = '/static/assets/logo.svg'/>
+      </div>
+      <div className = 'right-column'>
+        <h5 className = 'nav'>Hire us</h5>
+        <div id = 'menu' className = {this.state.showNavigation ? 'on' : 'menu'}
+          onClick={this.onClick.bind(this)}>
+          <i className = 'close'>
+            <span>
+              <p></p>
+              <p></p>
+              <p></p>
+            </span>
+          </i>
+        </div>
+      </div>
       <div className = {'navigation' + (this.state.showNavigation ? 'show' : 'hidden')}>
         <div className = 'nav-container'>
           { linksRender }
