@@ -22,12 +22,13 @@ class Topbar extends Component {
     } = this.props;
 
     let lastScrollTop = 0;
+    let state = this.state.showNavigation;
 
     window.addEventListener('scroll', function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > lastScrollTop) {
+      if (st > lastScrollTop && state == false) {
         document.getElementById('nav-bar-scroll').style.top = '-100%';
-      } else if (st <= 3) {
+      } else if (st <= 3 && state == false) {
         document.getElementById('nav-bar-scroll').style.top = '-100%';
       } else {
         document.getElementById('nav-bar-scroll').style.top = '0';
