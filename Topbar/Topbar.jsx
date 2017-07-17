@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
-import BurgerMenu from 'react-burger-menu';
+import { LOGO } from '../../../constants';
+import { LOGO_MOBILE } from '../../../constants';
 
 class Topbar extends Component {
   constructor(props) {
@@ -17,13 +18,12 @@ class Topbar extends Component {
   }
 
   componentDidMount() {
-    let state = this.state.showNavigation;
     let lastScrollTop = 0;
     window.addEventListener('scroll', function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > lastScrollTop && state == false) {
+      if (st > lastScrollTop && this.state.showNavigation == false) {
         this.setState({ showScrollBar: false });
-      } else if (st <= 3 && state == false) {
+      } else if (st <= 3 && this.state.showNavigation == false) {
         this.setState({ showScrollBar: false });
       } else {
         this.setState({ showScrollBar: true });
@@ -55,11 +55,11 @@ class Topbar extends Component {
       </div>
     ));
 
-    let navBarScroll =  <div className = { 'nav-bar-scroll ' + (this.state.showScrollBar ? 'show' : 'hidden')}
-      id = 'nav-bar-scroll'>
+    let navBarScroll =  <div className = { 'nav-bar-scroll ' +
+    (this.state.showScrollBar ? 'show' : 'hidden')}>
       <div className = 'left-column'>
-        <img className = 'logo' src = '/static/assets/logo.svg'/>
-        <img className = 'logo-mobile' src = '/static/assets/logo-mobile.svg'/>
+        <img className = 'logo' src = { LOGO }/>
+        <img className = 'logo-mobile' src = { LOGO_MOBILE }/>
       </div>
       <div className = 'right-column'>
         <h5 className = 'nav'>Hire us</h5>
@@ -75,6 +75,7 @@ class Topbar extends Component {
         </div>
       </div>
       <div className = {'navigation ' + (this.state.showNavigation ? 'show' : 'hidden')}>
+        <img src = { LOGO }/>
         <div className = 'nav-container'>
           { linksRender }
         </div>
@@ -83,7 +84,7 @@ class Topbar extends Component {
 
     let navBarHeader = <div className = 'nav-bar-header'>
       <div className = 'left-column'>
-        <img src = '/static/assets/logo.svg'/>
+        <img src = { LOGO }/>
       </div>
       <div className = 'right-column'>
         { linksRender }
