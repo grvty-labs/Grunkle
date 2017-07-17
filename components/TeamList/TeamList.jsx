@@ -43,7 +43,6 @@ class Team extends Component {
   }
 
   render() {
-    console.log(TEAM_LIST_GROUPSIZE);
 
     let background = {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',

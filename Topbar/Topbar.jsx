@@ -28,6 +28,7 @@ class Topbar extends Component {
     let lastScrollTop = 0;
     let state = this.state.showNavigation;
 
+    /*corregir esto*/
     window.addEventListener('scroll', function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > lastScrollTop && state == false) {
@@ -70,7 +71,7 @@ class Topbar extends Component {
           </i>
         </div>
       </div>
-      <div className = {'navigation' + (this.state.showNavigation ? 'show' : 'hidden')}>
+      <div className = {'navigation ' + (this.state.showNavigation ? 'show' : 'hidden')}>
         <div className = 'nav-container'>
           { linksRender }
         </div>

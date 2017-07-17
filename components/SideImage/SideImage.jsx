@@ -14,19 +14,23 @@ class sideImage extends Component {
       inverse = 'inverse';
     }
 
-    let background;
-    if (this.props.value.inline == false) {
-      background = {
-        alignItems: 'center',
-        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-      };
-    }
+    let background = {
+      backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+    };
+
+    // if (this.props.value.inline == false) {
+    //   background = {
+    //     alignItems: 'center',
+    //     backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
+    //   };
+    // }
 
     return (
-      <div className =  { 'sideImage ' + inverse} style = { background }>
+      <div className =  { 'sideImage ' + inverse }
+        style = { background }>
         <div className = 'column'>
           <div className = 'container'>
-            <picture>
+            <picture className = 'image'>
               <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
               <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
               <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
@@ -34,7 +38,7 @@ class sideImage extends Component {
             </picture>
           </div>
         </div>
-        <div className = 'column'>
+        <div className = {'column ' + (this.props.value.inline ? 'inline' : 'center')}>
           <div className = 'container-text'>
             <h3>{ this.props.value.subtitle }</h3>
             <h2>{ this.props.value.title }</h2>
