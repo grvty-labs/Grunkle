@@ -6,10 +6,17 @@ import { LOGO_MOBILE } from '../../../constants';
 class Topbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showNavigation: false,
-      showScrollBar: false,
-    };
+    if (window.innerWidth > 1204) {
+      this.state = {
+        showNavigation: false,
+        showScrollBar: false,
+      };
+    } else {
+      this.state = {
+        showNavigation: false,
+        showScrollBar: true,
+      };
+    }
   }
 
   onClick(e) {
@@ -23,7 +30,7 @@ class Topbar extends Component {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > lastScrollTop && this.state.showNavigation == false) {
         this.setState({ showScrollBar: false });
-      } else if (st <= 3 && this.state.showNavigation == false) {
+      } else if (st <= 3 && this.state.showNavigation == false && window.innerWidth > 1024) {
         this.setState({ showScrollBar: false });
       } else {
         this.setState({ showScrollBar: true });
