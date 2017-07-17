@@ -7,6 +7,7 @@ class Topbar extends Component {
     super(props);
     this.state = {
       showNavigation: false,
+      showScrollBar: false,
     };
   }
 
@@ -15,9 +16,26 @@ class Topbar extends Component {
     this.setState({ showNavigation: !this.state.showNavigation });
   }
 
-  // wrapper() {
-  //   this.state.showNavigation ? document.get
-  // }
+  componentDidMount() {
+    let state = this.state.showNavigation;
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop && state == false) {
+        this.setState({ showScrollBar: false });
+      } else if (st <= 3 && state == false) {
+        this.setState({ showScrollBar: false });
+      } else {
+        this.setState({ showScrollBar: true });
+      }
+
+      lastScrollTop = st;
+    }.bind(this), false);
+  }
+
+  componentWillUnmount() {
+    //TODO:checar como matar listener
+  }
 
   render () {
     const {
@@ -25,27 +43,11 @@ class Topbar extends Component {
       goToLink,
     } = this.props;
 
-    let lastScrollTop = 0;
-    let state = this.state.showNavigation;
-
-    /*corregir esto*/
-    window.addEventListener('scroll', function () {
-      var st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > lastScrollTop && state == false) {
-        document.getElementById('nav-bar-scroll').style.top = '-100%';
-      } else if (st <= 3 && state == false) {
-        document.getElementById('nav-bar-scroll').style.top = '-100%';
-      } else {
-        document.getElementById('nav-bar-scroll').style.top = '0';
-      }
-
-      lastScrollTop = st;
-    }, false);
-
     let linksRender = links.map((element, index) => (
       <div key = { index } className = 'nav' onClick = { () => {
         goToLink(element.id);
-        this.state.showNavigation == true ? this.setState({ showNavigation: !this.state.showNavigation })
+        this.state.showNavigation == true ?
+        this.setState({ showNavigation: !this.state.showNavigation })
         : null;
       }
       }>
@@ -53,7 +55,8 @@ class Topbar extends Component {
       </div>
     ));
 
-    let navBarScroll =  <div className = 'nav-bar-scroll' id = 'nav-bar-scroll'>
+    let navBarScroll =  <div className = { 'nav-bar-scroll ' + (this.state.showScrollBar ? 'show' : 'hidden')}
+      id = 'nav-bar-scroll'>
       <div className = 'left-column'>
         <img className = 'logo' src = '/static/assets/logo.svg'/>
         <img className = 'logo-mobile' src = '/static/assets/logo-mobile.svg'/>
