@@ -8,7 +8,6 @@ class Topbar extends Component {
     super(props);
     if (window.innerWidth > 1204) {
       this.state = {
-        showNavigation: false,
         showScrollBar: false,
       };
     } else {
@@ -19,18 +18,13 @@ class Topbar extends Component {
     }
   }
 
-  onClick(e) {
-    e.preventDefault();
-    this.setState({ showNavigation: !this.state.showNavigation });
-  }
-
   componentDidMount() {
     let lastScrollTop = 0;
     window.addEventListener('scroll', function () {
       var st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > lastScrollTop && this.state.showNavigation == false) {
+      if (st > lastScrollTop && this.props.slide == false) {
         this.setState({ showScrollBar: false });
-      } else if (st <= 3 && this.state.showNavigation == false && window.innerWidth > 1024) {
+      } else if (st <= 3 && this.props.slide == false && window.innerWidth > 1024) {
         this.setState({ showScrollBar: false });
       } else {
         this.setState({ showScrollBar: true });
@@ -48,15 +42,16 @@ class Topbar extends Component {
     const {
       links,
       goToLink,
+      toggle,
+      slide,
     } = this.props;
 
     let linksRender = links.map((element, index) => (
       <div key = { index } className = 'nav' onClick = { () => {
         goToLink(element.id);
-        this.state.showNavigation == true ?
-        this.setState({ showNavigation: !this.state.showNavigation })
-        : null;
       }
+
+      //TODO: close drawer on click
       }>
         { element.title }
       </div>
@@ -70,8 +65,8 @@ class Topbar extends Component {
       </div>
       <div className = 'right-column'>
         <h5 className = 'nav'>Hire us</h5>
-        <div id = 'menu' className = {this.state.showNavigation ? 'on' : 'menu'}
-          onClick={this.onClick.bind(this)}>
+        <div id = 'menu' className = {slide ? 'on' : 'menu'}
+          onClick={ toggle }>
           <i className = 'close'>
             <span>
               <p></p>
@@ -81,7 +76,7 @@ class Topbar extends Component {
           </i>
         </div>
       </div>
-      <div className = {'navigation ' + (this.state.showNavigation ? 'show' : 'hidden')}>
+      <div className = {'navigation ' + (slide ? 'show' : 'hidden')}>
         <img src = { LOGO }/>
         <div className = 'nav-container'>
           { linksRender }
