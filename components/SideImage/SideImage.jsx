@@ -20,7 +20,6 @@ class sideImage extends Component {
 
     let image;
     if (this.props.value.inline) {
-      console.log('entro');
       image = (
         <picture className = 'image'>
           <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
