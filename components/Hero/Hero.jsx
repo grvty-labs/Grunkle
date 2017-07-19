@@ -44,27 +44,31 @@ class Hero extends Component {
 
     return (
       <div className = 'hero' style = {background}>
-        <div className = { 'container' + columns }>
-          <h3>{ this.props.value.subtitle}</h3>
-          <h2>{ this.props.value.title }</h2>
-          <h4>{ this.props.value.paragraph }</h4>
-          <div className = {'cta-container' + cta }>
-            <a href = { this.props.value.cta.link }>
-              <div className = {this.props.value.cta.breed + cta}>
-                <span>{ this.props.value.cta.text }</span>
-              </div>
-            </a>
-            <a href = { this.props.value.extra_cta.link }>
-              <div className = {this.props.value.extra_cta.breed + extraCta}>
-                <span>{ this.props.value.extra_cta.text }</span>
-              </div>
-            </a>
+        <div className = 'hero-container'>
+          <div className = { 'container' + columns }>
+            <h3>{ this.props.value.subtitle}</h3>
+            <h2>{ this.props.value.title }</h2>
+            <div className = 'paragraph'>
+              <h4>{ this.props.value.paragraph }</h4>
+            </div>
+            <div className = {'cta-container' + cta }>
+              <a href = { this.props.value.cta.link }>
+                <div className = {this.props.value.cta.breed + cta}>
+                  <span>{ this.props.value.cta.text }</span>
+                </div>
+              </a>
+              <a href = { this.props.value.extra_cta.link }>
+                <div className = {this.props.value.extra_cta.breed + extraCta}>
+                  <span>{ this.props.value.extra_cta.text }</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div className = { 'container' + columns }>
+            { this.props.value.image != null ? this.renderImage() : null }
           </div>
         </div>
-        <div className = { 'container' + columns }>
-          { this.props.value.image != null ? this.renderImage() : null }
         </div>
-      </div>
     );
   }
 }
