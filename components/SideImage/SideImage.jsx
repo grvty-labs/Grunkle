@@ -37,14 +37,13 @@ class sideImage extends Component {
     }
 
     return (
-      <div className =  { 'sideImage ' + inverse }
+      <div className =  { 'sideImage ' + inverse +
+      (this.props.value.inline ? ' inline' : ' not-inline') }
         style = { background }>
-        <div className = 'column'>
-          <div className = 'container'>
-            { image }
-          </div>
+        <div className = 'column column-image'>
+          { image }
         </div>
-        <div className = {'column ' + (this.props.value.inline ? 'inline' : 'center')}>
+        <div className = 'column'>
           <div className = 'container-text'>
             <h3>{ this.props.value.subtitle }</h3>
             <h2>{ this.props.value.title }</h2>
