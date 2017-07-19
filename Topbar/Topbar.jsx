@@ -86,11 +86,13 @@ class Topbar extends Component {
     </div>;
 
     let navBarHeader = <div className = 'nav-bar-header'>
-      <div className = 'left-column'>
-        <img src = { LOGO }/>
-      </div>
-      <div className = 'right-column'>
-        { linksRender }
+      <div className = 'container'>
+        <div className = 'left-column'>
+          <img src = { LOGO }/>
+        </div>
+        <div className = 'right-column'>
+          { linksRender }
+        </div>
       </div>
     </div>;
 
