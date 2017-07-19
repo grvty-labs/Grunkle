@@ -18,24 +18,30 @@ class sideImage extends Component {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
     };
 
-    // if (this.props.value.inline == false) {
-    //   background = {
-    //     alignItems: 'center',
-    //     backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-    //   };
-    // }
+    let image;
+    if (this.props.value.inline) {
+      console.log('entro');
+      image = (
+        <picture className = 'image'>
+          <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
+          <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
+          <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
+          <img src = { this.props.value.image.thumbs.original }/>
+        </picture>
+      );
+    } else {
+      image = (
+        <div className = 'image-container'
+          style = {{ backgroundImage: 'url(' + this.props.value.image.thumbs.original + ')' }}/>
+      );
+    }
 
     return (
       <div className =  { 'sideImage ' + inverse }
         style = { background }>
         <div className = 'column'>
           <div className = 'container'>
-            <picture className = 'image'>
-              <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
-              <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
-              <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
-              <img src = { this.props.value.image.thumbs.original }/>
-            </picture>
+            { image }
           </div>
         </div>
         <div className = {'column ' + (this.props.value.inline ? 'inline' : 'center')}>

@@ -12,7 +12,6 @@ class Topbar extends Component {
       };
     } else {
       this.state = {
-        showNavigation: false,
         showScrollBar: true,
       };
     }
@@ -59,6 +58,7 @@ class Topbar extends Component {
 
     let navBarScroll =  <div className = { 'nav-bar-scroll ' +
     (this.state.showScrollBar ? 'show' : 'hidden')}>
+    <div className = 'container'>
       <div className = 'left-column'>
         <img className = 'logo' src = { LOGO }/>
         <img className = 'logo-mobile' src = { LOGO_MOBILE }/>
@@ -76,6 +76,7 @@ class Topbar extends Component {
           </i>
         </div>
       </div>
+    </div>
       <div className = {'navigation ' + (slide ? 'show' : 'hidden')}>
         <img src = { LOGO }/>
         <div className = 'nav-container'>
