@@ -20,14 +20,14 @@ class MasonryComponent extends Component {
     ));
 
     return (
-      <div className = 'masonry-container'>
-        <div className = 'masonry-header'>
+      <div className = 'masonry'>
+        <div className = 'header'>
           <h3>{ this.props.value.subtitle }</h3>
           <h2>{ this.props.value.title }</h2>
           <p>{ this.props.value.description }</p>
         </div>
       <Masonry
-        className = {'masonry'}
+        className = {'masonry-component'}
         elementType = {'div'}
         options = { this.masonry_options }
         disableImagesLoaded = { false }
