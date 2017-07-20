@@ -12,11 +12,6 @@ class Team extends Component {
       showInformation: false,
       element: null,
     };
-    this.masonry_options = {
-      resize: true,
-      transitionDuration: '0.3s',
-      initLayout: true,
-    };
   }
 
   showInformation(element, id) {

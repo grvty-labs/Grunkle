@@ -7,6 +7,7 @@ class TextColumn extends Component {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
     };
     let columnNumber = this.props.value.columns.length;
+    console.log(columnNumber);
     let width;
     let column = this.props.value.columns.map((element, index) => (
       <div key = { index } className = 'column'>
@@ -16,11 +17,11 @@ class TextColumn extends Component {
         <p>{ element.paragraph }</p>
       </div>
     ));
-    if (columnNumber + 1 >= 4) {
+    if (columnNumber >= 4) {
       width = {
         width: '1024px',
       };
-    } else if (columnNumber + 1 == 3) {
+    } else if (columnNumber == 3) {
       width = {
         width: '800px',
       };
