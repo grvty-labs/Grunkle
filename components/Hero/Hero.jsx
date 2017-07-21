@@ -15,11 +15,11 @@ class Hero extends Component {
   }
 
   render() {
-    let body = document.getElementById('body');
-    inView('.hero')
-    .on('enter', el => {
-      body.style.backgroundColor = 'rgba(' + this.props.value.decoration.background_color + ')';
-    });
+    // let body = document.getElementById('body');
+    // inView('.hero')
+    // .on('enter', el => {
+    //   body.style.backgroundColor = 'rgba(' + this.props.value.decoration.background_color + ')';
+    // });
 
     let cta = '-none';
     if (this.props.value.cta.text != '') {
