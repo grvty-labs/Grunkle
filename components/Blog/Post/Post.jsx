@@ -34,7 +34,7 @@ class Post extends Component {
       <div className = 'blog'>
         <div className = 'blog-header'>
           <div className = 'content'>
-            <h3>BY: </h3>
+            <h5>BY: </h5>
             <h2>{ this.props.title }</h2>
           </div>
         </div>
@@ -43,7 +43,7 @@ class Post extends Component {
             dangerouslySetInnerHTML={{ __html: this.props.body }}>
           </div>
           <div className = 'right-column'>
-            <h3>Subscribe:</h3>
+            <h5>Subscribe:</h5>
             <p>Get our freshest content and a list of curated posts every week.</p>
 
             <form>

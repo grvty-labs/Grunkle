@@ -7,6 +7,7 @@ class Team extends Component {
     super(props);
     this.showInformation = this.showInformation.bind(this);
     this.renderMemberInformation = this.renderMemberInformation.bind(this);
+    this.hideInformation = this.hideInformation.bind(this);
     this.state = {
       id: null,
       showInformation: false,
@@ -22,26 +23,40 @@ class Team extends Component {
     });
   }
 
+  hideInformation() {
+    this.setState({
+      element: null,
+      showInformation: false,
+      id: null,
+    });
+  }
+
   renderMemberInformation(element) {
     return (
-      <div className = 'member-information' key={0}>
+      <div className = 'member-information'>
+        <div className = 'svg'></div>
         <div className = 'left-column'>
+          <p onClick = { () => {this.hideInformation(); }
+          }>X</p>
           <picture className = 'member-photo'>
-            <source media = '(max-width:1024px)' srcSet = { element.photograph.thumbs.xs }/>
-            <source media = '(min-width:1024px)' srcSet = { element.photograph.thumbs.sm }/>
+            <source media = '(max-width:768px)' srcSet = { element.photograph.thumbs.xs }/>
+            <source media = '(max-width:1024px)' srcSet = { element.photograph.thumbs.sm }/>
+            <source media = '(min-width:1024px)' srcSet = { element.photograph.thumbs.md }/>
             <img src = { element.photograph.thumbs.original }/>
           </picture>
         </div>
         <div className = 'right-column'>
-          <h5>{ element.name }</h5>
-          <p>{ element.description }</p>
+          <h3>{ element.name }</h3>
+          <div className = 'rectangle'></div>
           <p>{ element.position }</p>
+          <p>{ element.description }</p>
         </div>
       </div>
     );
   }
 
   render() {
+    console.log(this.state.showInformation);
 
     let background = {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
@@ -50,7 +65,7 @@ class Team extends Component {
     let team = this.props.value.members.map((element, index) => (
       <div key = { index } className ='member-container'>
         <picture className = 'member-photo' onClick = {() =>
-          { this.showInformation(element, index);}
+          { this.showInformation(element, index); }
         }>
         <source media = '(max-width:1024px)' srcSet = { element.photograph.thumbs.xs }/>
         <source media = '(min-width:1024px)' srcSet = { element.photograph.thumbs.sm }/>
@@ -87,7 +102,7 @@ class Team extends Component {
       <div className = 'team-list' style = { background }>
         <div className = 'header'>
           <div className = 'container'>
-            <h3>{ this.props.value.subtitle }</h3>
+            <h5>{ this.props.value.subtitle }</h5>
             <h2>{ this.props.value.title }</h2>
             <p>{ this.props.value.paragraph }</p>
           </div>
@@ -102,6 +117,12 @@ class Team extends Component {
           <div className = 'right-column column'>
             { thirdColumn }
           </div>
+        </div>
+        <div className = {'modal' + (this.state.showInformation == true
+          ? '-show' : '-hiddden')}>
+          {this.state.showInformation == true ?
+            this.renderMemberInformation(this.state.element)
+            : null }
         </div>
       </div>
     );

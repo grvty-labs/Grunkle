@@ -21,10 +21,12 @@ class MasonryComponent extends Component {
 
     return (
       <div className = 'masonry'>
-        <div className = 'header'>
-          <h3>{ this.props.value.subtitle }</h3>
-          <h2>{ this.props.value.title }</h2>
-          <p>{ this.props.value.description }</p>
+        <div className = 'container'>
+          <div className = 'header'>
+            <h3>{ this.props.value.subtitle }</h3>
+            <h2>{ this.props.value.title }</h2>
+            <p>{ this.props.value.description }</p>
+          </div>
         </div>
       <Masonry
         className = {'masonry-component'}

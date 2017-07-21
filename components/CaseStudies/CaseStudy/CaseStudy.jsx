@@ -7,7 +7,7 @@ class CaseStudy extends Component{
       <div className = 'case-study'>
         <div className = 'header'>
           <div className = 'content'>
-            <h3>{ this.props.subtitle }</h3>
+            <h5>{ this.props.subtitle }</h5>
             <h2>{ this.props.title }</h2>
           </div>
         </div>

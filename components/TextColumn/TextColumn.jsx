@@ -7,7 +7,6 @@ class TextColumn extends Component {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
     };
     let columnNumber = this.props.value.columns.length;
-    console.log(columnNumber);
     let width;
     let column = this.props.value.columns.map((element, index) => (
       <div key = { index } className = 'column'>
