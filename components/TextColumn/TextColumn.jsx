@@ -12,7 +12,7 @@ class TextColumn extends Component {
       <div key = { index } className = 'column'>
         <img className = { 'icon' + (element.image == null ? ' null' : '')}
           src = { element.image == null ? null : element.image.thumbs.xs }/>
-        <h5>{ element.title }</h5>
+        <h3>{ element.title }</h3>
         <p>{ element.paragraph }</p>
       </div>
     ));

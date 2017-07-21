@@ -35,21 +35,23 @@ class Team extends Component {
     return (
       <div className = 'member-information'>
         <div className = 'svg'></div>
-        <div className = 'left-column'>
-          <p onClick = { () => {this.hideInformation(); }
-          }>X</p>
+        <div className = 'information'>
+          <div className = 'close'>
+            <p onClick = { () => {this.hideInformation(); }
+            }>X</p>
+          </div>
           <picture className = 'member-photo'>
             <source media = '(max-width:768px)' srcSet = { element.photograph.thumbs.xs }/>
             <source media = '(max-width:1024px)' srcSet = { element.photograph.thumbs.sm }/>
             <source media = '(min-width:1024px)' srcSet = { element.photograph.thumbs.md }/>
             <img src = { element.photograph.thumbs.original }/>
           </picture>
-        </div>
-        <div className = 'right-column'>
-          <h3>{ element.name }</h3>
-          <div className = 'rectangle'></div>
-          <p>{ element.position }</p>
-          <p>{ element.description }</p>
+          <div className = 'name-container'>
+            <h3>{ element.name }</h3>
+            <p className = 'position'>{ element.position }</p>
+            <div className = 'rectangle'></div>
+            <p className = 'description'>{ element.description }</p>
+          </div>
         </div>
       </div>
     );
