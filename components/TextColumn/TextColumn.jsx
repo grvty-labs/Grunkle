@@ -16,11 +16,11 @@ class TextColumn extends Component {
         <p>{ element.paragraph }</p>
       </div>
     ));
-    if (columnNumber >= 4) {
+    if (columnNumber >= 4 && window.innerWidth > 1024) {
       width = {
         width: '1024px',
       };
-    } else if (columnNumber == 3) {
+    } else if (columnNumber == 3 && window.innerWidth > 1024) {
       width = {
         width: '800px',
       };

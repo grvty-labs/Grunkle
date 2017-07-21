@@ -6,7 +6,7 @@ import { LOGO_MOBILE } from '../../../constants';
 class Topbar extends Component {
   constructor(props) {
     super(props);
-    if (window.innerWidth > 1204) {
+    if (window.innerWidth > 1024) {
       this.state = {
         showScrollBar: false,
       };

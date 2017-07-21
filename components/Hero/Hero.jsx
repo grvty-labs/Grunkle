@@ -1,5 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
+import inView from 'in-view';
 
 class Hero extends Component {
   renderImage() {
@@ -14,7 +15,12 @@ class Hero extends Component {
   }
 
   render() {
-    // console.log(this.props.value.decoration.background_image);
+    let body = document.getElementById('body');
+    inView('.hero')
+    .on('enter', el => {
+      body.style.backgroundColor = 'rgba(' + this.props.value.decoration.background_color + ')';
+    });
+
     let cta = '-none';
     if (this.props.value.cta.text != '') {
       cta = '-show';
