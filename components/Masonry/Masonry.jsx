@@ -15,6 +15,7 @@ class MasonryComponent extends Component {
         <div className = 'information'>
           <h6>{ element.title }</h6>
           <span>{ element.info }</span>
+          <div className = 'rectangle'></div>
         </div>
       </div>
     ));
