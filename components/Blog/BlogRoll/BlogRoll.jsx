@@ -7,7 +7,7 @@ class BlogRoll extends Component{
     let miniPost = this.props.posts.map((element, index) => (
         <div className = 'mini-post' key = { index }
           onClick = { () => this.props.toPage(element.id)} >
-          <h5>BY </h5>
+          <h5>BY { element.author.first_name }</h5>
           <h2>{ element.title }</h2>
           {/* <span>{ element.tags }</span> */}
         </div>
