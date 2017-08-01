@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 class CaseRoll extends Component{
   render() {
     let miniPost = this.props.cases.map((element, index) => (
-      <div className = 'mini-post' onClick = {() => this.props.toPage(element.id) }>
+      <div className = 'mini-post' onClick = {() => this.props.toPage(element.id) }
+        key = { index }>
         <div className = 'left-column'>
           <picture className = 'image'>
             <source media = '(max-width:767px)' srcSet = { element.header_image_thumbs.thumbs.xs }/>
