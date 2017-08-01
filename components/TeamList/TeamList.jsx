@@ -58,7 +58,6 @@ class Team extends Component {
   }
 
   render() {
-    console.log(this.state.showInformation);
 
     let background = {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
