@@ -20,7 +20,6 @@ class SideEmbended extends Component {
     };
 
     var videoid = this.props.value.embed.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-    console.log('video id = ', videoid[1]);
 
     return (
       <div className = 'sideEmbed ' style = { background }>

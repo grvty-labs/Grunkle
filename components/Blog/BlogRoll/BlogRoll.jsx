@@ -9,7 +9,9 @@ class BlogRoll extends Component{
           onClick = { () => this.props.toPage(element.id)} >
           <h5>BY { element.author.first_name }</h5>
           <h2>{ element.title }</h2>
-          {/* <span>{ element.tags }</span> */}
+          { element.tags.map((element, index) => (
+            <span>#{element}</span>
+          ))}
         </div>
     ));
 
@@ -23,10 +25,11 @@ class BlogRoll extends Component{
               dangerouslySetInnerHTML = {{ __html: this.props.description }}>
             </div>
           </div>
-          <div className = 'rectangle'></div>
         </div>
         <div className = 'roll'>
+          <div className = 'container'>
           { miniPost }
+          </div>
         </div>
       </div>
     );
