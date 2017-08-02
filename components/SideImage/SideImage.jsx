@@ -23,7 +23,6 @@ class sideImage extends Component {
     if (this.props.value.inline) {
       image = (
         <picture className = 'image'>
-          <source media = '(max-width:767px)' srcSet = { this.props.value.image.thumbs.xs }/>
           <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
           <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
           <img src = { this.props.value.image.thumbs.original }/>
