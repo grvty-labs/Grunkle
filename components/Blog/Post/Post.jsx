@@ -32,28 +32,31 @@ class Post extends Component {
 
     return (
       <div className = 'blog'>
-        <div className = 'blog-header'>
-          <div className = 'content'>
-            <h5>BY: </h5>
+        <div className = 'header'>
+          <div className = 'container'>
+            <h5>BY: { this.props.author.first_name}</h5>
             <h2>{ this.props.title }</h2>
           </div>
+          <div className = 'division-rectangle'></div>
         </div>
         <div className = 'post-content'>
-          <div className = 'left-column'
-            dangerouslySetInnerHTML={{ __html: this.props.body }}>
-          </div>
-          <div className = 'right-column'>
-            <h5>Subscribe:</h5>
-            <p>Get our freshest content and a list of curated posts every week.</p>
+          <div className = 'container'>
+            <div className = 'left-column'
+              dangerouslySetInnerHTML={{ __html: this.props.body }}>
+            </div>
+            <div className = 'right-column'>
+              <h5>Subscribe:</h5>
+              <p>Get our freshest content and a list of curated posts every week.</p>
 
-            <form>
-              <span>Email:</span>
-              <input type = 'email' placeholder = 'stan@mysteryshack.com'></input>
-              <div className = 'primary-show'>
-                <span>JOIN NEWSLETTER</span>
-              </div>
-            </form>
-            <span>*No spam; we promise</span>
+              <form>
+                <span>Email:</span>
+                <input type = 'email' placeholder = 'stan@mysteryshack.com'></input>
+                <div className = 'primary-show'>
+                  <span>JOIN NEWSLETTER</span>
+                </div>
+              </form>
+              <span>*No spam; we promise</span>
+            </div>
           </div>
         </div>
       </div>

@@ -25,13 +25,14 @@ class CaseRoll extends Component{
     return (
       <div className = ' case-roll'>
         <div className = 'header'>
-          <div className = 'content'>
+          <div className = 'container'>
             <h5>{ this.props.subtitle }</h5>
             <h2>{ this.props.title }</h2>
             <div className = 'description'
               dangerouslySetInnerHTML = {{ __html: this.props.description }}>
             </div>
           </div>
+          <div className = 'division-rectangle'></div>
         </div>
         <div className = 'roll'>
           { miniPost }

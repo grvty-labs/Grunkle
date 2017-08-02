@@ -25,6 +25,7 @@ class BlogRoll extends Component{
               dangerouslySetInnerHTML = {{ __html: this.props.description }}>
             </div>
           </div>
+          <div className = 'division-rectangle'></div>
         </div>
         <div className = 'roll'>
           <div className = 'container'>
