@@ -13,14 +13,16 @@ class CaseStudy extends Component{
         </div>
         <div className = 'case-study-content'>
           <div className = 'first-column'>
-
+            See all work
           </div>
           <div className = 'second-column'
             dangerouslySetInnerHTML={{ __html: this.props.body }}>
 
           </div>
           <div className = 'third-column'>
-
+            <h5>Client:</h5>
+            <h5>Year:</h5>
+            <h5>Solutions:</h5>
           </div>
         </div>
       </div>
