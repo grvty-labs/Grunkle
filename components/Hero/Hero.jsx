@@ -53,7 +53,7 @@ class Hero extends Component {
         <div className = 'hero-container'>
           <div className = { 'container' + columns }>
             <h5>{ this.props.value.subtitle}</h5>
-            <h1>{ this.props.value.title }</h1>
+            <h1 className = 'jumbo'>{ this.props.value.title }</h1>
             <div className = 'paragraph'>
               <p>{ this.props.value.paragraph }</p>
             </div>

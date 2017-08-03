@@ -35,10 +35,10 @@ class Header extends Component {
     return (
       <div className = 'header-container'>
         <div className = 'header' style = { background }>
-          <div className = 'content'>
+          <div className = 'container'>
             <h5>{ this.props.value.subtitle }</h5>
             <h1>{ this.props.value.title }</h1>
-            <span>{ this.props.value.paragraph }</span>
+            <p>{ this.props.value.paragraph }</p>
             <div className = { 'cta-container' + cta }>
               <a href = { this.props.value.cta.link }>
                 <div className = {this.props.value.cta.breed + cta}>

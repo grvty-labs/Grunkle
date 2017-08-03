@@ -10,6 +10,7 @@ import TeamList from '../components/TeamList/TeamList';
 import MasonryComponent from '../components/Masonry/Masonry';
 import Post from '../components/Posts/Post';
 import Roll from '../components/Rolls/Roll';
+import RichTextField from '../components/RichTextField/RichTextField';
 
 class Page extends Component {
 
@@ -39,6 +40,8 @@ class Page extends Component {
           return <TeamList key = { index } { ...element }/>;
         case 'masonry':
           return <MasonryComponent key = { index } { ...element }/>;
+        case 'richtext':
+          return <RichTextField key = { index } { ...element }/>;
         default:
           return <div key={ index }>Component not available</div>;
       }
@@ -61,11 +64,11 @@ class Page extends Component {
     //   }
     // ));
 
-    return(
+    return (
       <div className = 'page'>
         { pageRender }
       </div>
-    )
+    );
   }
 }
 
