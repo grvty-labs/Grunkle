@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import RichTextField from '../../RichTextField/RichTextField';
 import Masonry from '../../Masonry/Masonry';
 import SideEmbedded from '../../SideEmbbeded/SideEmbedded';
+import Quote from '../../Quote/Quote';
 
 class CaseStudy extends Component{
   render() {
@@ -14,6 +15,8 @@ class CaseStudy extends Component{
           return <Masonry key = { index } { ...element }/>;
         case 'sideEmbed':
           return <SideEmbedded key = { index } { ...element }/>;
+        case 'quote':
+          return <Quote key = { index } { ...element }/>;
         default:
           return <div>Component not available</div>;
       }
