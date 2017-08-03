@@ -68,8 +68,7 @@ class Team extends Component {
         <picture className = 'member-photo' onClick = {() =>
           { this.showInformation(element, index); }
         }>
-        <source media = '(max-width:1024px)' srcSet = { element.photograph.thumbs.xs }/>
-        <source media = '(min-width:1024px)' srcSet = { element.photograph.thumbs.sm }/>
+        <source media = '(max-width:1440px)' srcSet = { element.photograph.thumbs.sm }/>
         <img src = { element.photograph.thumbs.original }/>
       </picture>
       <span>{ element.name }</span>
