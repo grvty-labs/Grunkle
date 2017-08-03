@@ -6,7 +6,7 @@ class CaseRoll extends Component{
     let miniPost = this.props.cases.map((element, index) => (
       <div className = 'mini-post' onClick = {() => this.props.toPage(element.id) }
         key = { index }>
-        <div className = 'column'>
+        <div className = 'column column-image'>
           <picture className = 'image'>
             <source media = '(max-width:767px)' srcSet = { element.header_image_thumbs.thumbs.xs }/>
             <source media = '(max-width:1024px)' srcSet = { element.header_image_thumbs.thumbs.sm }/>

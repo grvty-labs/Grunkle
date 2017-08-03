@@ -13,11 +13,6 @@ class Feature extends Component{
 
     return (
       <div className = 'feature'>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h2>{ this.props.value.title }</h2>
-          </div>
-        </div>
         <div className = 'feature-container'>
           <div className = 'container'>
             { columns }
