@@ -53,9 +53,9 @@ class Hero extends Component {
         <div className = 'hero-container'>
           <div className = { 'container' + columns }>
             <h5>{ this.props.value.subtitle}</h5>
-            <h2>{ this.props.value.title }</h2>
+            <h1>{ this.props.value.title }</h1>
             <div className = 'paragraph'>
-              <h4>{ this.props.value.paragraph }</h4>
+              <p>{ this.props.value.paragraph }</p>
             </div>
             <div className = {'cta-container' + cta }>
               <a href = { this.props.value.cta.link }>

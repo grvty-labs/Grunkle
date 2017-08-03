@@ -33,20 +33,22 @@ class Header extends Component {
     }
 
     return (
-      <div className = 'header' style = { background }>
-        <div className = 'content'>
-          <h5>{ this.props.value.subtitle }</h5>
-          <h2>{ this.props.value.title }</h2>
-          <span>{ this.props.value.paragraph }</span>
-          <div className = { 'cta-container' + cta }>
-            <a href = { this.props.value.cta.link }>
-              <div className = {this.props.value.cta.breed + cta}>
-                <span>{this.props.value.cta.text}</span>
-              </div>
-            </a>
-          </div>
-          <div className = 'image'>
-            { this.props.value.image != null ? this.renderImage() : null }
+      <div className = 'header-container'>
+        <div className = 'header' style = { background }>
+          <div className = 'content'>
+            <h5>{ this.props.value.subtitle }</h5>
+            <h1>{ this.props.value.title }</h1>
+            <span>{ this.props.value.paragraph }</span>
+            <div className = { 'cta-container' + cta }>
+              <a href = { this.props.value.cta.link }>
+                <div className = {this.props.value.cta.breed + cta}>
+                  <span>{this.props.value.cta.text}</span>
+                </div>
+              </a>
+            </div>
+            <div className = 'image'>
+              { this.props.value.image != null ? this.renderImage() : null }
+            </div>
           </div>
         </div>
       </div>

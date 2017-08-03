@@ -15,7 +15,6 @@ class MasonryComponent extends Component {
         <div className = 'information'>
           <h6>{ element.title }</h6>
           <span>{ element.info }</span>
-          <div className = 'rectangle'></div>
         </div>
       </div>
     ));
@@ -24,7 +23,7 @@ class MasonryComponent extends Component {
       <div className = 'masonry'>
         <div className = 'header'>
           <div className = 'container'>
-            <h3>{ this.props.value.subtitle }</h3>
+            <h5>{ this.props.value.subtitle }</h5>
             <h2>{ this.props.value.title }</h2>
             <p>{ this.props.value.description }</p>
           </div>
