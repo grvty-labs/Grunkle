@@ -1,7 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 
-class SideEmbended extends Component {
+class SideEmbedded extends Component {
   render() {
     let side;
     if (this.props.value.side == 'left') {
@@ -22,7 +22,7 @@ class SideEmbended extends Component {
     var videoid = this.props.value.embed.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
 
     return (
-      <div className = 'sideEmbed ' style = { background }>
+      <div className = 'sideEmbed' style = { background }>
         <div className = {'container ' + side }>
           <div className = 'column video'>
             <embed src = { 'http://youtube.com/embed/' + videoid[1] }/>
@@ -45,4 +45,4 @@ class SideEmbended extends Component {
   }
 }
 
-export default SideEmbended;
+export default SideEmbedded;

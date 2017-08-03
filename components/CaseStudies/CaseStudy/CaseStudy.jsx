@@ -1,8 +1,24 @@
 'use strict';
 import React, { Component } from 'react';
+import RichTextField from '../../RichTextField/RichTextField';
+import Masonry from '../../Masonry/Masonry';
+import SideEmbedded from '../../SideEmbbeded/SideEmbedded';
 
 class CaseStudy extends Component{
   render() {
+    let pageRender = this.props.body.map((element, index) => {
+        switch (element.type){
+        case 'richtext':
+          return <RichTextField key = { index } { ...element }/>;
+        case 'masonry':
+          return <Masonry key = { index } { ...element }/>;
+        case 'sideEmbed':
+          return <SideEmbedded key = { index } { ...element }/>;
+        default:
+          return <div>Component not available</div>;
+      }
+      });
+
     return (
       <div className = 'case-study'>
         <div className = 'header'>
@@ -17,8 +33,8 @@ class CaseStudy extends Component{
             <div className = 'first-column'>
               <a href = '#'><strong>See all work</strong></a>
             </div>
-            <div className = 'second-column'
-              dangerouslySetInnerHTML={{ __html: this.props.body }}>
+            <div className = 'second-column'>
+              { pageRender }
             </div>
             <div className = 'third-column'>
               <h5>Client:</h5>
