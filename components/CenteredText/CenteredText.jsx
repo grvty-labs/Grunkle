@@ -35,9 +35,11 @@ class CenteredText extends Component {
       <div className = 'centered-text' style = { background }>
         <div className = 'centered-text-container'>
           <div className = 'container'>
-            <h4>{ this.props.value.subtitle }</h4>
+            <h5>{ this.props.value.subtitle }</h5>
             <h2>{ this.props.value.title }</h2>
-            <p>{ this.props.value.paragraph }</p>
+            <div className = 'paragraph'>
+              <p>{ this.props.value.paragraph }</p>
+            </div>
             { this.props.value.image != null ? this.renderImage() : null }
             <div className = { 'cta-container' + cta }>
               <div className = { this.props.value.cta.breed + cta }>
