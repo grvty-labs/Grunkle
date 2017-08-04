@@ -7,8 +7,10 @@ class Quote extends Component{
       <div className = 'quote'>
         <div className = 'container'>
           <div className = 'image-container'>
-            <picture>
-              <source media = '(max-width:1440px)' srcSet =
+            <picture className = 'image'>
+              <source media = '(max-width:768px)' srcSet =
+                { this.props.value.photograph.thumbs.sm }/>
+              <source media = '(min-width:768px)' srcSet =
                 { this.props.value.photograph.thumbs.md }/>
               <img src = { this.props.value.photograph.thumbs.original }/>
             </picture>
