@@ -2,6 +2,13 @@
 import React, { Component } from 'react';
 
 class TextColumn extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
+
   render() {
     let background = {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
@@ -26,9 +33,18 @@ class TextColumn extends Component {
       };
     }
 
+    /*checks if the menu is opened or closed and changes the class depending
+    on the case */
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
+    }
+
     return (
       <div className = 'text-column' style = { background }>
-        <div className = 'container' style = { width }>
+        <div className = { 'container ' + menu } style = { width }>
           { column }
         </div>
       </div>

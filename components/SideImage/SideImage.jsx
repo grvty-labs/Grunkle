@@ -35,7 +35,7 @@ class sideImage extends Component {
     let image;
     if (this.props.value.inline) {
       image = (
-        <picture className = 'image'>
+        <picture className = { 'image ' + menu }>
           <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
           <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
           <img src = { this.props.value.image.thumbs.original }/>
@@ -58,7 +58,7 @@ class sideImage extends Component {
           { image }
           <div className = 'division-rectangle'></div>
         </div>
-        <div className = 'column'>
+        <div className = 'column column-text'>
           <div className = {'container-text ' + menu}>
             <h5>{ this.props.value.subtitle }</h5>
             <h2>{ this.props.value.title }</h2>
