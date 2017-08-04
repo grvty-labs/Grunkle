@@ -50,6 +50,7 @@ class Header extends Component {
               { this.props.value.image != null ? this.renderImage() : null }
             </div>
           </div>
+          {/* <div className = 'division-rectangle'></div> */}
         </div>
       </div>
     );

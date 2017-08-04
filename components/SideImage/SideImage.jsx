@@ -3,11 +3,24 @@ import React, { Component } from 'react';
 import inView from 'in-view';
 
 class sideImage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
 
   render() {
     let cta = '-none';
     if (this.props.value.cta.text != '') {
       cta = '-show';
+    }
+
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
     }
 
     let inverse = 'normal';
@@ -38,12 +51,15 @@ class sideImage extends Component {
     return (
       <div className =  { 'sideImage ' + inverse +
       (this.props.value.inline ? ' inline' : ' not-inline') }
-        style = { background }>
+        style = { background }
+        ref={div => {this.div = div;}}
+        >
         <div className = 'column column-image'>
           { image }
+          <div className = 'division-rectangle'></div>
         </div>
         <div className = 'column'>
-          <div className = 'container-text'>
+          <div className = {'container-text ' + menu}>
             <h5>{ this.props.value.subtitle }</h5>
             <h2>{ this.props.value.title }</h2>
             <p>{ this.props.value.paragraph }</p>
