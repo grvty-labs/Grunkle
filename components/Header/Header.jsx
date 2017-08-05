@@ -2,6 +2,13 @@
 import React, { Component } from 'react';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
+
   renderImage() {
     return (
       <picture>
@@ -20,6 +27,15 @@ class Header extends Component {
       cta = '-show';
     }
 
+    /*checks if the menu is opened or closed and changes the class depending
+    on the case */
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'header-menu-open';
+    } else {
+      menu = 'header-menu-close';
+    }
+
     let background;
     if (this.props.value.decoration.background_image != null) {
       background = {
@@ -34,8 +50,8 @@ class Header extends Component {
 
     return (
       <div className = 'header-container'>
-        <div className = 'header' style = { background }>
-          <div className = 'container'>
+        <div className = { 'header '  + menu } style = { background }>
+          <div className =  'container'>
             <h5>{ this.props.value.subtitle }</h5>
             <h1>{ this.props.value.title }</h1>
             <p>{ this.props.value.paragraph }</p>
@@ -51,6 +67,7 @@ class Header extends Component {
             </div>
           </div>
           {/* <div className = 'division-rectangle'></div> */}
+          <div className = 'division-rectangle'></div>
         </div>
       </div>
     );

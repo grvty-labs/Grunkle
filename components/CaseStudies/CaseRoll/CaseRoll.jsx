@@ -2,12 +2,26 @@
 import React, { Component } from 'react';
 
 class CaseRoll extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
+
   render() {
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
+    }
+
     let miniPost = this.props.cases.map((element, index) => (
       <div className = 'mini-post' onClick = {() => this.props.toPage(element.id) }
         key = { index }>
         <div className = 'column column-image'>
-          <picture className = 'image'>
+          <picture className = {'image ' + menu}>
             <source media = '(max-width:767px)' srcSet = { element.header_image_thumbs.thumbs.xs }/>
             <source media = '(max-width:1024px)' srcSet = { element.header_image_thumbs.thumbs.sm }/>
             <source media = '(min-width:1024px)' srcSet = { element.header_image_thumbs.thumbs.md }/>
@@ -22,17 +36,20 @@ class CaseRoll extends Component{
       </div>
     ));
 
+
     return (
       <div className = ' case-roll'>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h5>{ this.props.subtitle }</h5>
-            <h2>{ this.props.title }</h2>
-            <div className = 'description'
-              dangerouslySetInnerHTML = {{ __html: this.props.description }}>
+        <div className = 'header-container'>
+          <div className = 'header'>
+            <div className = 'container'>
+              <h5>{ this.props.subtitle }</h5>
+              <h2>{ this.props.title }</h2>
+              <div className = 'description'
+                dangerouslySetInnerHTML = {{ __html: this.props.description }}>
+              </div>
             </div>
+            <div className = 'division-rectangle'></div>
           </div>
-          <div className = 'division-rectangle'></div>
         </div>
         <div className = 'roll'>
           { miniPost }

@@ -21,22 +21,27 @@ class MasonryComponent extends Component {
 
     return (
       <div className = 'masonry'>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h5>{ this.props.value.subtitle }</h5>
-            <h2>{ this.props.value.title }</h2>
-            <p>{ this.props.value.description }</p>
+        <div className = 'header-container'>
+          <div className = 'header'>
+            <div className = 'container'>
+              <h5>{ this.props.value.subtitle }</h5>
+              <h2>{ this.props.value.title }</h2>
+              <p>{ this.props.value.description }</p>
+            </div>
+            <div className = 'division-rectangle'></div>
           </div>
         </div>
-      <Masonry
-        className = {'masonry-component'}
-        elementType = {'div'}
-        options = { this.masonry_options }
-        disableImagesLoaded = { false }
-        updateOnEachImageLoad = { false }
-        >
-          { images }
-        </Masonry>
+        <div className = 'masonry-container'>
+          <Masonry
+            className = {'masonry-component'}
+            elementType = {'div'}
+            options = { this.masonry_options }
+            disableImagesLoaded = { false }
+            updateOnEachImageLoad = { false }
+            >
+              { images }
+            </Masonry>
+        </div>
       </div>
     );
   }

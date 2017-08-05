@@ -100,11 +100,14 @@ class Team extends Component {
 
     return (
       <div className = 'team-list' style = { background }>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h5>{ this.props.value.subtitle }</h5>
-            <h2>{ this.props.value.title }</h2>
-            <p>{ this.props.value.paragraph }</p>
+        <div className = 'header-container'>
+          <div className = 'header'>
+            <div className = 'container'>
+              <h5>{ this.props.value.subtitle }</h5>
+              <h2>{ this.props.value.title }</h2>
+              <p>{ this.props.value.paragraph }</p>
+            </div>
+            <div className = 'division-rectangle'></div>
           </div>
         </div>
         <div className = 'team'>

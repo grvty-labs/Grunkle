@@ -2,6 +2,13 @@
 import React, { Component } from 'react';
 
 class Feature extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
+
   render() {
     let columns = this.props.value.features.map((element, index) => (
         <div className = 'column' key = { index }>
@@ -22,10 +29,19 @@ class Feature extends Component{
       };
     }
 
+    /*checks if the menu is opened or closed and changes the class depending
+    on the case */
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
+    }
+
     return (
       <div className = 'feature'>
         <div className = 'feature-container'>
-          <div className = 'container' style = { width }>
+          <div className = {'container ' + menu } style = { width }>
             { columns }
           </div>
         </div>

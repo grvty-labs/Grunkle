@@ -24,12 +24,14 @@ class CaseStudy extends Component{
 
     return (
       <div className = 'case-study'>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h5>{ this.props.subtitle }</h5>
-            <h2>{ this.props.title }</h2>
+        <div className = 'header-container'>
+          <div className = 'header'>
+            <div className = 'container'>
+              <h5>{ this.props.subtitle }</h5>
+              <h2>{ this.props.title }</h2>
+            </div>
+            <div className = 'division-rectangle'></div>
           </div>
-          <div className = 'division-rectangle'></div>
         </div>
         <div className = 'header-image'>
           <img src = { this.props.header_image.thumbs.original }/>

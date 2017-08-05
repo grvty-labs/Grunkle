@@ -47,8 +47,8 @@ class CenteredText extends Component {
               </div>
             </div>
           </div>
+          <div className = 'division-rectangle'></div>
         </div>
-        <div className = 'division-rectangle'></div>
       </div>
     );
   }

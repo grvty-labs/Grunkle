@@ -2,6 +2,13 @@
 import React, { Component } from 'react';
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
+
   render() {
     const formProps = {
       action: '//grvtylabs.us12.list-manage.com/subscribe/post?u=9d3af7886067ec22e1903608a&amp',
@@ -30,17 +37,28 @@ class Post extends Component {
 
     // const Form = ;
 
+    /*checks if the menu is opened or closed and changes the class depending
+    on the case */
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
+    }
+
     return (
       <div className = 'blog'>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h5>BY: { this.props.author.first_name}</h5>
-            <h2>{ this.props.title }</h2>
+        <div className = 'header-container'>
+          <div className = 'header'>
+            <div className = 'container'>
+              <h5>BY: { this.props.author.first_name}</h5>
+              <h2>{ this.props.title }</h2>
+            </div>
+            <div className = 'division-rectangle'></div>
           </div>
-          <div className = 'division-rectangle'></div>
         </div>
-        <div className = 'post-content'>
-          <div className = 'container'>
+        <div className = 'post-content '>
+          <div className = {'container ' + menu}>
             <div className = 'left-column'
               dangerouslySetInnerHTML={{ __html: this.props.body }}>
             </div>

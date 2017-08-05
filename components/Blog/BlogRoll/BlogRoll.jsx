@@ -2,6 +2,13 @@
 import React, { Component } from 'react';
 
 class BlogRoll extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
+
   render() {
 
     let miniPost = this.props.posts.map((element, index) => (
@@ -15,17 +22,28 @@ class BlogRoll extends Component{
         </div>
     ));
 
+    /*checks if the menu is opened or closed and changes the class depending
+    on the case */
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
+    }
+
     return (
       <div className = 'blog-roll'>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h5>{ this.props.subtitle }</h5>
-            <h2>{ this.props.title }</h2>
-            <div className = 'description'
-              dangerouslySetInnerHTML = {{ __html: this.props.description }}>
+        <div className = 'header-container'>
+          <div className = 'header'>
+            <div className = 'container'>
+              <h5>{ this.props.subtitle }</h5>
+              <h2>{ this.props.title }</h2>
+              <div className = 'description'
+                dangerouslySetInnerHTML = {{ __html: this.props.description }}>
+              </div>
             </div>
+            <div className = 'division-rectangle'></div>
           </div>
-          <div className = 'division-rectangle'></div>
         </div>
         <div className = 'roll'>
           <div className = 'container'>

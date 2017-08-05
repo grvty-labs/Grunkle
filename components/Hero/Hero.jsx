@@ -3,6 +3,13 @@ import React, { Component } from 'react';
 import inView from 'in-view';
 
 class Hero extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slide: this.props.slide,
+    };
+  }
+
   renderImage() {
     return (
       <picture className = 'image'>
@@ -15,11 +22,6 @@ class Hero extends Component {
   }
 
   render() {
-    // let body = document.getElementById('body');
-    // inView('.hero')
-    // .on('enter', el => {
-    //   body.style.backgroundColor = 'rgba(' + this.props.value.decoration.background_color + ')';
-    // });
 
     let cta = '-none';
     if (this.props.value.cta.text != '') {
@@ -48,9 +50,18 @@ class Hero extends Component {
       };
     }
 
+    /*checks if the menu is opened or closed and changes the class depending
+    on the case */
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
+    }
+
     return (
       <div className = 'hero' style = {background}>
-        <div className = 'hero-container'>
+        <div className = {'hero-container ' + menu }>
           <div className = { 'container' + columns }>
             <h5>{ this.props.value.subtitle}</h5>
             <h1 className = 'jumbo'>{ this.props.value.title }</h1>
@@ -73,8 +84,9 @@ class Hero extends Component {
           <div className = { 'container' + columns }>
             { this.props.value.image != null ? this.renderImage() : null }
           </div>
+          <div className = { 'division-rectangle ' + 'rectangle-' + menu }></div>
         </div>
-        </div>
+      </div>
     );
   }
 }
