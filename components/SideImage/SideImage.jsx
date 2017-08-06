@@ -7,7 +7,29 @@ class sideImage extends Component {
     super(props);
     this.state = {
       slide: this.props.slide,
+      load: false,
     };
+  }
+
+  componentDidMount() {
+    let wrapper = document.getElementsByClassName('image');
+    /*cuando la clase image este in view (no se como hacerle porque se ejecuta
+  en todos los que tienen esa clase y no el componente que en el que esta in view)*/
+    inView('.image')
+    .on('enter',  () => {
+      /*for para tener en una variable las imagenes que se tienen que desplegar*/
+      for (let i = 0; i < wrapper.length; i++) {
+        let img = wrapper[i].children;
+        for (let i = 0; i < img.length; i++) {
+          /*checar si las imagenes se cargaron*/
+          var tempImg = new Image();
+          tempImg.src = img[i].src;
+          tempImg.onload = () => {
+            this.setState({ load: true });
+          };
+        }
+      }
+    });
   }
 
   render() {
@@ -32,10 +54,12 @@ class sideImage extends Component {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
     };
 
+
     let image;
     if (this.props.value.inline) {
       image = (
-        <picture className = { 'image ' + menu }>
+        <picture className = { 'image ' + menu +
+        (this.state.load ? ' loaded' : ' not-loaded') }>
           <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
           <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
           <img src = { this.props.value.image.thumbs.original }/>

@@ -10,6 +10,8 @@ class Hero extends Component {
     };
   }
 
+
+
   renderImage() {
     return (
       <picture className = 'image'>
@@ -22,7 +24,6 @@ class Hero extends Component {
   }
 
   render() {
-
     let cta = '-none';
     if (this.props.value.cta.text != '') {
       cta = '-show';
@@ -59,8 +60,15 @@ class Hero extends Component {
       menu = 'menu-close';
     }
 
+    /*Check if the element is in view port and if it is
+    then the animation is played*/
+    inView('.hero')
+    .on('enter', el => {
+      elem.style.animationPlayState = 'running';
+    });
+
     return (
-      <div className = 'hero' style = {background}>
+      <div className = 'hero fadeUp' style = {background}>
         <div className = {'hero-container ' + menu }>
           <div className = { 'container' + columns }>
             <h5>{ this.props.value.subtitle}</h5>

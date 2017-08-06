@@ -1,5 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
+import inView from 'in-view';
 
 class CenteredText extends Component {
   renderImage(element) {
@@ -30,6 +31,13 @@ class CenteredText extends Component {
     if (this.props.value.cta.text != '') {
       cta = '-show';
     }
+
+    /*Check if the element is in view port and if it is
+    then the animation is played*/
+    inView('.centered-text')
+    .on('enter', el => {
+      elem.style.animationPlayState = 'running';
+    });
 
     return (
       <div className = 'centered-text' style = { background }>
