@@ -1,6 +1,5 @@
 'use strict';
 import React, { Component } from 'react';
-import inView from 'in-view';
 
 class Hero extends Component {
   constructor(props) {
@@ -59,13 +58,6 @@ class Hero extends Component {
     } else {
       menu = 'menu-close';
     }
-
-    /*Check if the element is in view port and if it is
-    then the animation is played*/
-    inView('.hero')
-    .on('enter', el => {
-      elem.style.animationPlayState = 'running';
-    });
 
     return (
       <div className = 'hero fadeUp' style = {background}>

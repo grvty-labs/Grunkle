@@ -12,6 +12,7 @@ class Team extends Component {
       id: null,
       showInformation: false,
       element: null,
+      slide: this.props.slide,
     };
   }
 
@@ -80,6 +81,15 @@ class Team extends Component {
     let secondColumn = firstColumn.splice(0, divider);
     let thirdColumn = firstColumn.splice(0, divider);
 
+    /*checks if the menu is opened or closed and changes the class depending
+    on the case */
+    let menu;
+    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
+      menu = 'menu-open';
+    } else {
+      menu = 'menu-close';
+    }
+
     //  div with n number of elements
     // .reduce((r, element, index) => {
     //       index % aux === 0 && r.push([]);
@@ -110,14 +120,14 @@ class Team extends Component {
             <div className = 'division-rectangle'></div>
           </div>
         </div>
-        <div className = 'team'>
-          <div className = 'left-column column'>
+        <div className = {'team ' + menu}>
+          <div className = {'left-column column ' + menu }>
             { secondColumn}
           </div>
-          <div className = 'middle-column column'>
+          <div className = {'middle-column column ' + menu}>
             { firstColumn }
           </div>
-          <div className = 'right-column column'>
+          <div className = {'right-column column ' + menu}>
             { thirdColumn }
           </div>
         </div>
