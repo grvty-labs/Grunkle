@@ -1,6 +1,5 @@
 'use strict';
 import React, { Component } from 'react';
-import VisibilitySensor from 'react-visibility-sensor';
 
 class CenteredText extends Component {
   renderImage(element) {

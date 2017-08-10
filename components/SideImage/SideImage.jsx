@@ -8,10 +8,11 @@ class sideImage extends Component {
       slide: this.props.slide,
       load: false,
     };
+    this.changeState = this.changeState.bind(this);
   }
 
-  componentDidMount() {
-    let wrapper = document.getElementsByClassName('image');
+  // componentDidMount() {
+  //   let wrapper = document.getElementsByClassName('image');
     /*cuando la clase image este in view (no se como hacerle porque se ejecuta
   en todos los que tienen esa clase y no el componente que en el que esta in view)*/
     /*for para tener en una variable las imagenes que se tienen que desplegar*/
@@ -28,9 +29,29 @@ class sideImage extends Component {
     //     };
     //   }
     // }
+  // }
+
+  changeState() {
+    console.log('entro');
+    this.setState({ load: true });
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.image;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      let img = elem.lastElementChild;
+      var tempImg = new Image();
+      tempImg.src = img.src;
+      tempImg.onload = () => {
+        () => this.changeState();
+      };
+
+      watcher.dispose();
+    }
+
     let cta = '-none';
     if (this.props.value.cta.text != '') {
       cta = '-show';
@@ -52,12 +73,12 @@ class sideImage extends Component {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
     };
 
-
     let image;
     if (this.props.value.inline) {
       image = (
         <picture className = { 'image ' + menu +
-        (this.state.load ? ' loaded' : ' not-loaded') }>
+        (this.state.load ? ' loaded' : ' not-loaded') } ref = {(image) => { this.image = image; }}
+        >
           <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
           <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
           <img src = { this.props.value.image.thumbs.original }/>

@@ -23,6 +23,15 @@ class Hero extends Component {
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.hero;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      elem.style.animationPlayState = 'running';
+      watcher.destroy();
+    }
+
     let cta = '-none';
     if (this.props.value.cta.text != '') {
       cta = '-show';
@@ -60,7 +69,7 @@ class Hero extends Component {
     }
 
     return (
-      <div className = 'hero fadeUp' style = {background}>
+      <div className = 'hero fadeUp' style = {background} ref = {(hero => { this.hero = hero; })}>
         <div className = {'hero-container ' + menu }>
           <div className = { 'container' + columns }>
             <h5>{ this.props.value.subtitle}</h5>
