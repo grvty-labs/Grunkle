@@ -29,7 +29,7 @@ class Hero extends Component {
 
     function visible() {
       elem.style.animationPlayState = 'running';
-      watcher.destroy();
+      watcher.dispose();
     }
 
     let cta = '-none';
