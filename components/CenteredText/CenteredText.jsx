@@ -14,6 +14,17 @@ class CenteredText extends Component {
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.centeredText;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
+      watcher.dispose();
+    }
+
     let background;
     if (this.props.value.decoration.background_image != null) {
       background = {
@@ -32,7 +43,9 @@ class CenteredText extends Component {
     }
 
     return (
-      <div className = 'centered-text' style = { background }>
+      <div className = 'centered-text fadeUp' style = { background }
+        ref = {(centeredText) => { this.centeredText = centeredText; }}
+        >
         <div className = 'centered-text-container'>
           <div className = 'container'>
             <h5>{ this.props.value.subtitle }</h5>

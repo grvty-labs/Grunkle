@@ -10,7 +10,16 @@ class RichTextField extends Component{
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.fadeUp;
+    var watcher = inViewport(elem, visible);
 
+    function visible() {
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
+      watcher.dispose();
+    }
     /*checks if the menu is opened or closed and changes the class depending
     on the case */
     let menu;
@@ -21,7 +30,7 @@ class RichTextField extends Component{
     }
 
     return (
-      <div className = 'rich-text-field'>
+      <div className = 'rich-text-field fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
           <div className = { 'container ' + menu }>
             <div className = 'text'
               dangerouslySetInnerHTML={{ __html: this.props.value }}>

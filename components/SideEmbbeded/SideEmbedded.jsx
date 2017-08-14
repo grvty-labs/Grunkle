@@ -10,6 +10,17 @@ class SideEmbedded extends Component {
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.fadeUp;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
+      watcher.dispose();
+    }
+
     let side;
     if (this.props.value.side == 'left') {
       side = 'left';
@@ -43,7 +54,7 @@ class SideEmbedded extends Component {
           <div className = 'column video'>
             <embed src = { 'http://youtube.com/embed/' + videoid[1] }/>
           </div>
-          <div className = 'column'>
+          <div className = 'column fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
             <div className = { 'container-text ' + menu }>
               <h5>{ this.props.value.subtitle }</h5>
               <h2>{ this.props.value.title }</h2>

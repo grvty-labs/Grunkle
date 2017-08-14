@@ -4,6 +4,17 @@ import Masonry from 'react-masonry-component';
 
 class MasonryComponent extends Component {
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.fadeUp;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
+      watcher.dispose();
+    }
+
     // console.log(this.props);
     let images = this.props.value.images.map((element, index) => (
       <div className = 'image-container' key = { index }>
@@ -22,7 +33,7 @@ class MasonryComponent extends Component {
     return (
       <div className = 'masonry'>
         <div className = 'header-container'>
-          <div className = 'header'>
+          <div className = 'header fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
             <div className = 'container'>
               <h5>{ this.props.value.subtitle }</h5>
               <h2>{ this.props.value.title }</h2>

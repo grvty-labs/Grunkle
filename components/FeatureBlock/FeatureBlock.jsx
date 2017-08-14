@@ -10,6 +10,17 @@ class Feature extends Component{
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.fadeUp;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
+      watcher.dispose();
+    }
+
     let columns = this.props.value.features.map((element, index) => (
         <div className = 'column' key = { index }>
           <img src = { element.svg }/>
@@ -39,7 +50,7 @@ class Feature extends Component{
     }
 
     return (
-      <div className = 'feature'>
+      <div className = 'feature fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
         <div className = 'feature-container'>
           <div className = {'container ' + menu } style = { width }>
             { columns }

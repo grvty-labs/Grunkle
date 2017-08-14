@@ -28,7 +28,9 @@ class Hero extends Component {
     var watcher = inViewport(elem, visible);
 
     function visible() {
-      elem.style.animationPlayState = 'running';
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
       watcher.dispose();
     }
 

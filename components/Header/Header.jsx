@@ -21,7 +21,17 @@ class Header extends Component {
   }
 
   render() {
-    // console.log(this.props);
+    var inViewport = require('in-viewport');
+    var elem = this.fadeUp;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
+      watcher.dispose();
+    }
+
     let cta = '-none';
     if (this.props.value.cta.text != '') {
       cta = '-show';
@@ -49,8 +59,8 @@ class Header extends Component {
     }
 
     return (
-      <div className = 'header-container'>
-        <div className = { 'header '  + menu } style = { background }>
+      <div className = 'header-container fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp })}>
+        <div className = { 'header'  + menu } style = { background }>
           <div className =  'container'>
             <h5>{ this.props.value.subtitle }</h5>
             <h1>{ this.props.value.title }</h1>

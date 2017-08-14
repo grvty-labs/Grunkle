@@ -10,6 +10,17 @@ class TextColumn extends Component {
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var elem = this.fadeUp;
+    var watcher = inViewport(elem, visible);
+
+    function visible() {
+      elem.style.animation = 'fadeUp 1s ease forwards';
+      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+
+      watcher.dispose();
+    }
+
     let background = {
       backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
     };
@@ -43,7 +54,8 @@ class TextColumn extends Component {
     }
 
     return (
-      <div className = 'text-column' style = { background }>
+      <div className = 'text-column fadeUp' style = { background }
+        ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
         <div className = { 'container ' + menu } style = { width }>
           { column }
         </div>

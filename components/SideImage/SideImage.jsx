@@ -8,21 +8,18 @@ class sideImage extends Component {
       slide: this.props.slide,
       load: false,
     };
-    this.changeState = this.changeState.bind(this);
-  }
-
-  changeState() {
-    console.log('entro');
-    this.setState({ load: true });
   }
 
   render() {
     var inViewport = require('in-viewport');
     var elem = this.image;
-    var watcher = inViewport(elem, visible);
+    let fadeUp = this.fadeUp;
+    var watcher = inViewport(fadeUp, visible);
     let load = false;
 
     function visible() {
+      fadeUp.style.animation = 'fadeUp 1s ease forwards';
+      fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
       let img = elem.lastElementChild;
       var tempImg = new Image();
       tempImg.src = img.src;
@@ -84,7 +81,8 @@ class sideImage extends Component {
           <div className = 'division-rectangle'></div>
         </div>
         <div className = 'column column-text'>
-          <div className = {'container-text ' + menu}>
+          <div className = {'container-text fadeUp ' + menu}
+            ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
             <h5>{ this.props.value.subtitle }</h5>
             <h2>{ this.props.value.title }</h2>
             <p>{ this.props.value.paragraph }</p>
