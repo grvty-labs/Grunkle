@@ -14,12 +14,16 @@ class sideImage extends Component {
     var inViewport = require('in-viewport');
     var elem = this.image;
     let fadeUp = this.fadeUp;
+    let ctaAnimation = this.ctaAnimation;
     var watcher = inViewport(fadeUp, visible);
     let load = false;
 
     function visible() {
       fadeUp.style.animation = 'fadeUp 1s ease forwards';
       fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
+      ctaAnimation.style.boxShadow = 'inset 0 -100px 0 0 #31302B';
+
+      // ctaAnimation.style.webkitAnimation = 'colorUp 1s ease fowards';
       let img = elem.lastElementChild;
       var tempImg = new Image();
       tempImg.src = img.src;
@@ -87,7 +91,8 @@ class sideImage extends Component {
             <h2>{ this.props.value.title }</h2>
             <p>{ this.props.value.paragraph }</p>
             <div className = {'cta-container' + cta}>
-              <div className = {this.props.value.cta.breed + cta}>
+              <div className = {this.props.value.cta.breed + cta}
+                ref = {(ctaAnimation => { this.ctaAnimation = ctaAnimation;})}>
                 <span>{this.props.value.cta.text}</span>
               </div>
             </div>
