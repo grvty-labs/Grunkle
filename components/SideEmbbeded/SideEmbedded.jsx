@@ -11,14 +11,22 @@ class SideEmbedded extends Component {
 
   render() {
     var inViewport = require('in-viewport');
+    var inViewport2 = require('in-viewport');
     var elem = this.fadeUp;
+    let ctaAnimation = this.ctaAnimation;
     var watcher = inViewport(elem, visible);
+    var buttonWatcher = inViewport2(ctaAnimation, colorUp);
 
     function visible() {
       elem.style.animation = 'fadeUp 1s ease forwards';
       elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
 
       watcher.dispose();
+    }
+
+    function colorUp() {
+      ctaAnimation.style.boxShadow = 'inset 0 -100px 0 0 #31302B';
+      buttonWatcher.dispose();
     }
 
     let side;
@@ -60,7 +68,9 @@ class SideEmbedded extends Component {
               <h2>{ this.props.value.title }</h2>
               <p>{ this.props.value.paragraph }</p>
               <div className = { 'cta-container' + cta }>
-                <div className = {this.props.value.cta.breed + cta}>
+                <div className = {this.props.value.cta.breed + cta}
+                  ref = {(ctaAnimation => { this.ctaAnimation = ctaAnimation;})}>
+                  <span className = 'cta-text'>{this.props.value.cta.text}</span>
                   <span>{this.props.value.cta.text}</span>
                 </div>
               </div>
