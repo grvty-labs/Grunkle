@@ -60,7 +60,7 @@ class Header extends Component {
 
     return (
       <div className = 'header-container fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp })}>
-        <div className = { 'header'  + menu } style = { background }>
+        <div className = { 'header '  + menu } style = { background }>
           <div className =  'container'>
             <h5>{ this.props.value.subtitle }</h5>
             <h1>{ this.props.value.title }</h1>
