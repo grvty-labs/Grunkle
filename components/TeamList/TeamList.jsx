@@ -10,16 +10,17 @@ class Team extends Component {
     this.hideInformation = this.hideInformation.bind(this);
     this.state = {
       id: null,
-      showInformation: false,
+      // showInformation: this.props.modal,
       element: null,
       slide: this.props.slide,
     };
   }
 
+
   showInformation(element, id) {
     this.setState({
       element: element,
-      showInformation: true,
+      // showInformation: true,
       id: id,
     });
   }
@@ -27,7 +28,7 @@ class Team extends Component {
   hideInformation() {
     this.setState({
       element: null,
-      showInformation: false,
+      // showInformation: false,
       id: null,
     });
   }
@@ -38,7 +39,10 @@ class Team extends Component {
         <div className = 'svg'></div>
         <div className = 'information'>
           <div className = 'close'>
-            <p onClick = { () => {this.hideInformation(); }
+            <p onClick = { () => {
+              this.hideInformation();
+              this.props.toggleModal();
+            }
             }>X</p>
           </div>
           <picture className = 'member-photo'>
@@ -59,6 +63,7 @@ class Team extends Component {
   }
 
   render() {
+    console.log(this.props.modal);
     var inViewport = require('in-viewport');
     var elem = this.fadeUp;
     var watcher = inViewport(elem, visible);
@@ -77,7 +82,9 @@ class Team extends Component {
     let team = this.props.value.members.map((element, index) => (
       <div key = { index } className ='member-container'>
         <picture className = 'member-photo' onClick = {() =>
-          { this.showInformation(element, index); }
+          {
+            this.showInformation(element, index); this.props.toggleModal();
+          }
         }>
         <source media = '(max-width:1440px)' srcSet = { element.photograph.thumbs.sm }/>
         <img src = { element.photograph.thumbs.original }/>
@@ -141,9 +148,9 @@ class Team extends Component {
             { thirdColumn }
           </div>
         </div>
-        <div className = {'modal' + (this.state.showInformation == true
+        <div className = {'modal' + (this.props.modal
           ? '-show' : '-hidden')}>
-          {this.state.showInformation == true ?
+          {this.props.modal ?
             this.renderMemberInformation(this.state.element)
             : null }
         </div>

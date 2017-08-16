@@ -44,6 +44,7 @@ class Topbar extends Component {
       toggle,
       slide,
       goToPage,
+      home,
     } = this.props;
 
     let linksRender = links.map((element, index) => (
@@ -59,8 +60,12 @@ class Topbar extends Component {
     (this.state.showScrollBar ? 'show' : 'hidden')}>
     <div className = 'container'>
       <div className = 'left-column'>
-        <img className = 'logo' src = { LOGO }/>
-        <img className = 'logo-mobile' src = { LOGO_MOBILE }/>
+        <img className = 'logo' src = { LOGO } onClick = {
+          () => { goToLink(home.id);}
+        }/>
+        <img className = 'logo-mobile' src = { LOGO_MOBILE } onClick = {
+          () => { goToLink(home.id);}
+        }/>
       </div>
       <div className = 'right-column'>
         <h5 className = 'nav'>Hire us</h5>
@@ -87,7 +92,9 @@ class Topbar extends Component {
     let navBarHeader = <div className = 'nav-bar-header'>
       <div className = 'container'>
         <div className = 'left-column'>
-          <img src = { LOGO }/>
+          <img src = { LOGO }  onClick = {
+            () => { goToLink(home.id);}
+          }/>
         </div>
         <div className = 'right-column'>
           { linksRender }
