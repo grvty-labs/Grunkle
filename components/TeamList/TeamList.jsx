@@ -142,7 +142,7 @@ class Team extends Component {
           </div>
         </div>
         <div className = {'modal' + (this.state.showInformation == true
-          ? '-show' : '-hiddden')}>
+          ? '-show' : '-hidden')}>
           {this.state.showInformation == true ?
             this.renderMemberInformation(this.state.element)
             : null }

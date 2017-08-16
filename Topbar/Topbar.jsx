@@ -43,15 +43,14 @@ class Topbar extends Component {
       goToLink,
       toggle,
       slide,
+      goToPage,
     } = this.props;
 
     let linksRender = links.map((element, index) => (
-      <div key = { index } className = 'nav' onClick = { () => {
-        goToLink(element.id);
-      }
+      <div key = { index } className = 'nav' onClick = {
+        (element.id == null ? ()=> { goToPage(element.link);}
 
-      //TODO: close drawer on click
-      }>
+        : () => { goToLink(element.id);})}>
         { element.title }
       </div>
     ));
