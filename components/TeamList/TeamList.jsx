@@ -63,7 +63,6 @@ class Team extends Component {
   }
 
   render() {
-    console.log(this.props.modal);
     var inViewport = require('in-viewport');
     var elem = this.fadeUp;
     var watcher = inViewport(elem, visible);
