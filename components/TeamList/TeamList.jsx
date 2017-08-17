@@ -10,17 +10,14 @@ class Team extends Component {
     this.hideInformation = this.hideInformation.bind(this);
     this.state = {
       id: null,
-      // showInformation: this.props.modal,
       element: null,
       slide: this.props.slide,
     };
   }
 
-
   showInformation(element, id) {
     this.setState({
       element: element,
-      // showInformation: true,
       id: id,
     });
   }
@@ -28,7 +25,6 @@ class Team extends Component {
   hideInformation() {
     this.setState({
       element: null,
-      // showInformation: false,
       id: null,
     });
   }
