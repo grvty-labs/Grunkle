@@ -10,14 +10,32 @@ class BlogRoll extends Component{
   }
 
   render() {
+    var inViewport = require('in-viewport');
+    var inViewport2 = require('in-viewport');
+    let fadeUp = this.fadeUp;
+    var watcher = inViewport(fadeUp, visible);
+    let header = this.header;
+    var watcher2 = inViewport2(header, animation);
+
+    function visible() {
+      fadeUp.style.animation = 'fadeUp 1s ease forwards';
+      fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
+      watcher.dispose();
+    }
+
+    function animation() {
+      header.style.animation = 'fadeUp 1s ease forwards';
+      header.style.webkitAnimation = 'fadeUp 1s ease forwards';
+    }
 
     let miniPost = this.props.posts.map((element, index) => (
-        <div className = 'mini-post' key = { index }
+        <div className = 'mini-post fadeUp' key = { index }
+          ref = {(fadeUp => { this.fadeUp = fadeUp;})}
           onClick = { () => this.props.toPage(element.id)} >
           <h5>BY { element.author.first_name }</h5>
           <h2>{ element.title }</h2>
           { element.tags.map((element, index) => (
-            <span>#{element}</span>
+            <span key = { index }>#{element}</span>
           ))}
         </div>
     ));
@@ -33,7 +51,8 @@ class BlogRoll extends Component{
 
     return (
       <div className = 'blog-roll'>
-        <div className = 'header-container'>
+        <div className = 'header-container fadeUp'
+          ref = {(header => { this.header = header; })}>
           <div className = 'header'>
             <div className = 'container'>
               <h5>{ this.props.subtitle }</h5>
