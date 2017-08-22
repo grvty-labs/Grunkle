@@ -1,24 +1,24 @@
 'use strict';
 import React, { Component } from 'react';
-import SideImage from '../components/SideImage/SideImage';
-import Hero from '../components/Hero/Hero';
-import Header from '../components/Header/Header';
-import CenteredText from '../components/CenteredText/CenteredText';
-import TextColumn from '../components/TextColumn/TextColumn';
-import SideEmbended from '../components/SideEmbbeded/SideEmbbeded';
-import TeamList from '../components/TeamList/TeamList';
-import MasonryComponent from '../components/Masonry/Masonry';
-import Post from '../components/Posts/Post';
-import Roll from '../components/Rolls/Roll';
-import RichTextField from '../components/RichTextField/RichTextField';
+import SideImage from '../components/SideImage';
+import Hero from '../components/Hero';
+import Header from '../components/Header';
+import CenteredText from '../components/CenteredText';
+import TextColumn from '../components/TextColumn';
+import SideEmbended from '../components/SideEmbedded';
+import TeamList from '../components/TeamList';
+import MasonryComponent from '../components/Masonry';
+// import Post from '../components/Posts/Post';
+// import Roll from '../components/Rolls/Roll';
+import RichTextField from '../components/RichTextField';
 
 class Page extends Component {
+  componentDidMount() {
+    document.title = this.props.currentPage.title;
+  }
 
   render() {
-
-    const {
-      currentPage,
-    } = this.props;
+    const { currentPage } = this.props;
 
     // console.log(currentPage);
 

@@ -2,6 +2,10 @@
 import React, { Component } from 'react';
 
 class CompaniesRoll extends Component {
+  componentDidMount() {
+    document.title = this.props.title;
+  }
+
   render() {
     let miniPost = this.props.posts.map((element, index) => (
       <div className = 'mini-post' key = { index } onClick = {() => this.props.toPage(element.id, element.slug)}>

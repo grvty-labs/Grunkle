@@ -1,7 +1,11 @@
 'use strict';
 import React, { Component } from 'react';
 
-class CompanyPost extends Component{
+class CompanyPost extends Component {
+  componentDidMount() {
+    document.title = this.props.title;
+  }
+
   render() {
     return (
       <div className = 'company-post'>

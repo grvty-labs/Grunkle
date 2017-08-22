@@ -1,14 +1,18 @@
 'use strict';
 import React, { Component } from 'react';
-import RichTextField from '../../RichTextField/RichTextField';
-import Masonry from '../../Masonry/Masonry';
-import SideEmbedded from '../../SideEmbbeded/SideEmbedded';
-import Quote from '../../Quote/Quote';
+import RichTextField from '../../RichTextField';
+import Masonry from '../../Masonry';
+import SideEmbedded from '../../SideEmbedded';
+import Quote from '../../Quote';
 
-class CaseStudy extends Component{
+class CaseStudy extends Component {
+  componentDidMount() {
+    document.title = this.props.title;
+  }
+
   render() {
     let pageRender = this.props.body.map((element, index) => {
-        switch (element.type){
+      switch (element.type) {
         case 'richtext':
           return <RichTextField key = { index } { ...element }/>;
         case 'masonry':
@@ -20,7 +24,7 @@ class CaseStudy extends Component{
         default:
           return <div>Component not available</div>;
       }
-      });
+    });
 
     return (
       <div className = 'case-study'>

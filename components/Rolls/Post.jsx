@@ -6,17 +6,17 @@ class Post extends Component {
     let posts = this.props.posts.map((element, index) => (
       <div className = 'mini-post' key = { index } onClick = { () =>
         this.props.postChange(element.id) }>
-            <div className = 'left-column'>
-              <img src = { element.image } />
-            </div>
-            <div className = 'right-column'>
-              <h3 className = 'title'>{ element.title }</h3>
-              <div className = 'divider'></div>
-              <div className = 'bottom-mini-post'>
-                <img className = 'icon' src = 'assets/shape.svg'/>
-                <strong className = 'time'>{ element.time }</strong>
-              </div>
-            </div>
+        <div className = 'left-column'>
+          <img src = { element.image } />
+        </div>
+        <div className = 'right-column'>
+          <h3 className = 'title'>{ element.title }</h3>
+          <div className = 'divider'></div>
+          <div className = 'bottom-mini-post'>
+            <img className = 'icon' src = 'assets/shape.svg'/>
+            <strong className = 'time'>{ element.time }</strong>
+          </div>
+        </div>
       </div>
     ));
 

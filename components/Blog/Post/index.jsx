@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 
 class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      slide: this.props.slide,
-    };
+  state = {
+    slide: this.props.slide,
+  };
+
+  componentDidMount() {
+    document.title = this.props.title;
   }
 
   render() {
