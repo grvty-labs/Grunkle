@@ -26,7 +26,7 @@ class CaseRoll extends Component {
     const miniPost = cases.map((element, index) => (
       <div
         className='mini-post'
-        onClick={() => toPage(element.id, element.slug)}
+        onClick={() => toPage(element.id, element.url)}
         key={index}
       >
         <div className='column column-image'>

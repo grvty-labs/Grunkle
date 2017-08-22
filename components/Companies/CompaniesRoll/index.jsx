@@ -7,25 +7,29 @@ class CompaniesRoll extends Component {
   }
 
   render() {
-    let miniPost = this.props.posts.map((element, index) => (
-      <div className = 'mini-post' key = { index } onClick = {() => this.props.toPage(element.id, element.slug)}>
-        <h5>{ element.subtitle }</h5>
-        <h2>{ element.title }</h2>
+    const miniPost = this.props.posts.map((element, index) => (
+      <div
+        className='mini-post' key={index}
+        onClick={() => this.props.toPage(element.id, element.url)}
+      >
+        <h5>{element.subtitle}</h5>
+        <h2>{element.title}</h2>
       </div>
     ));
 
     return (
-      <div className = 'companies-roll'>
-        <div className = 'header'>
-          <div className = 'container'>
-            <h5>{ this.props.subtitle }</h5>
-            <h2>{ this.props.title }</h2>
-            <div className = 'description'
-              dangerouslySetInnerHTML = {{ __html: this.props.description }}>
-            </div>
+      <div className='companies-roll'>
+        <div className='header'>
+          <div className='container'>
+            <h5>{this.props.subtitle}</h5>
+            <h2>{this.props.title}</h2>
+            <div
+              className='description'
+              dangerouslySetInnerHTML={{ __html: this.props.description }}
+            />
           </div>
         </div>
-        <div className = 'roll'>
+        <div className='roll'>
           { miniPost }
         </div>
       </div>

@@ -47,8 +47,8 @@ class Topbar extends React.Component < void, TopbarProps, DState> {
       <div
         key={index} className='nav'
         onClick={(element.id == null
-          ? () => goToPage(element.slug)
-          : () => goToLink(element.id, element.slug))}
+          ? () => goToPage(element.url)
+          : () => goToLink(element.id, element.url))}
       >
         {element.title}
       </div>
@@ -97,7 +97,7 @@ class Topbar extends React.Component < void, TopbarProps, DState> {
       <div className='nav-bar-header'>
         <div className='container'>
           <div className='left-column'>
-            <img src={LOGO} onClick={() => goToLink(home.id, home.slug)} alt={home.alt} />
+            <img src={LOGO} onClick={() => goToLink(home.id, home.url)} alt={home.alt} />
           </div>
           <div className='right-column'>
             { linksRender }
