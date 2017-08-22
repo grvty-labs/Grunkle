@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class CompaniesRoll extends Component {
   render() {
     let miniPost = this.props.posts.map((element, index) => (
-      <div className = 'mini-post' key = { index } onClick = {() => this.props.toPage(element.id)}>
+      <div className = 'mini-post' key = { index } onClick = {() => this.props.toPage(element.id, element.slug)}>
         <h5>{ element.subtitle }</h5>
         <h2>{ element.title }</h2>
       </div>

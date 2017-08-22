@@ -18,7 +18,7 @@ class CaseRoll extends Component{
     }
 
     let miniPost = this.props.cases.map((element, index) => (
-      <div className = 'mini-post' onClick = {() => this.props.toPage(element.id) }
+      <div className = 'mini-post' onClick = {() => this.props.toPage(element.id, element.slug) }
         key = { index }>
         <div className = 'column column-image'>
           <picture className = {'image ' + menu}>
