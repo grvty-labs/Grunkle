@@ -1,25 +1,32 @@
-'use strict';
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
+import type { BlockComponentProps } from '../../flowTypes';
+import type { ThumbedImageField } from '../../flowTypes/fields';
 
-class CenteredText extends Component {
-  renderImage(element) {
-    return (
-      <picture>
-        <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
-        <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
-        <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
-        <img src = { this.props.value.image.thumbs.original }/>
-      </picture>
-    );
+
+class CenteredText extends React.Component < void, BlockComponentProps, void > {
+  renderImage(image: ThumbedImageField) {
+    if (image) {
+      return (
+        <picture>
+          <source media='(max-width:768px)' srcSet={image.thumbs.xs} />
+          <source media='(max-width:1024px)' srcSet={image.thumbs.sm} />
+          <source media='(min-width:1024px)' srcSet={image.thumbs.md} />
+          <img src={image.thumbs.original} alt={image.title} />
+        </picture>
+      );
+    }
+    return null;
   }
 
   render() {
-    var inViewport = require('in-viewport');
-    var inViewport2 = require('in-viewport');
-    var elem = this.centeredText;
-    let ctaAnimation = this.ctaAnimation;
-    var watcher = inViewport(elem, visible);
-    var buttonWatcher = inViewport2(ctaAnimation, colorUp);
+    const { value } = this.props;
+    const inViewport = require('in-viewport');
+    const inViewport2 = require('in-viewport');
+    const elem = this.centeredText;
+    const ctaAnimation = this.ctaAnimation;
+    const watcher = inViewport(elem, visible);
+    const buttonWatcher = inViewport2(ctaAnimation, colorUp);
 
     function visible() {
       elem.style.animation = 'fadeUp 1s ease forwards';
@@ -33,44 +40,45 @@ class CenteredText extends Component {
       buttonWatcher.dispose();
     }
 
-    let background;
-    if (this.props.value.decoration.background_image != null) {
-      background = {
-        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-        backgroundImage: 'url(' + this.props.value.decoration.background_image.thumbs.original + ')',
+    const background = (value.decoration.background_image != null)
+      ? {
+        backgroundColor: `rgba(${value.decoration.background_color})`,
+        backgroundImage: `url(${value.decoration.background_image.thumbs.original})`,
+      }
+      : {
+        backgroundColor: `rgba(${value.decoration.background_color})`,
       };
-    }else {
-      background = {
-        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-      };
-    }
+
 
     let cta = '-none';
-    if (this.props.value.cta.text != '') {
+    if (value.cta.text !== '') {
       cta = '-show';
     }
 
     return (
-      <div className = 'centered-text fadeUp' style = { background }
-        ref = {(centeredText) => { this.centeredText = centeredText; }}
-        >
-        <div className = 'centered-text-container'>
-          <div className = 'container'>
-            <h5>{ this.props.value.subtitle }</h5>
-            <h2>{ this.props.value.title }</h2>
-            <div className = 'paragraph'>
-              <p>{ this.props.value.paragraph }</p>
+      <div
+        className='centered-text fadeUp' style={background}
+        ref={(centeredText) => { this.centeredText = centeredText; }}
+      >
+        <div className='centered-text-container'>
+          <div className='container'>
+            <h5>{value.subtitle}</h5>
+            <h2>{value.title}</h2>
+            <div className='paragraph'>
+              <p>{value.paragraph}</p>
             </div>
-            { this.props.value.image != null ? this.renderImage() : null }
-            <div className = { 'cta-container' + cta }>
-              <div className = { this.props.value.cta.breed + cta }
-                ref = {(ctaAnimation => { this.ctaAnimation = ctaAnimation;})}>
-                <span className = 'cta-text'>{ this.props.value.cta.text }</span>
-                <span>{ this.props.value.cta.text }</span>
+            { this.renderImage(value.image) }
+            <div className={`cta-container ${cta}`}>
+              <div
+                className={value.cta.breed + cta}
+                ref={(ctaAn) => { this.ctaAnimation = ctaAn; }}
+              >
+                <span className='cta-text'>{value.cta.text}</span>
+                <span>{value.cta.text}</span>
               </div>
             </div>
           </div>
-          <div className = 'division-rectangle'></div>
+          <div className='division-rectangle' />
         </div>
       </div>
     );
