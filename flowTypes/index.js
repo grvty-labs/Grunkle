@@ -21,6 +21,32 @@ export type TopbarProps = {
   home: TopbarHomeLink,
 };
 
+export type PageBlock = {
+  id: string,
+  title: string,
+  type: string,
+  decoration: {
+    background_color?: string,
+    background_image?: {
+      id: number,
+      title: string,
+      thumbs: {
+        original: string,
+        xs: string,
+        sm: string,
+        md: string,
+      },
+    },
+  },
+  cta: {
+    text?: string,
+    breed?: string,
+    page?: number,
+    link?: string,
+    event?: string,
+  },
+};
+
 export type PageMetaProps = {
   type: string,
   detail_url: string,
@@ -49,5 +75,14 @@ export type PageProps = {
   url: string,
   subtitle: string,
 
-  description?: string,
+  body: Array<PageBlock>,  // FIXME: Not all pages have this. Intersection.
+  description: string,  // FIXME: Not all pages have this. Intersection.
+};
+
+export type PageComponentProps = {
+  currentPage: PageProps,
+  toPage: Function,
+  slide: boolean,
+  modal: boolean,
+  toggleModal: Function,
 };

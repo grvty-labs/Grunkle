@@ -1,5 +1,5 @@
-'use strict';
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 import SideImage from '../components/SideImage';
 import Hero from '../components/Hero';
 import Header from '../components/Header';
@@ -11,8 +11,9 @@ import MasonryComponent from '../components/Masonry';
 // import Post from '../components/Posts/Post';
 // import Roll from '../components/Rolls/Roll';
 import RichTextField from '../components/RichTextField';
+import type { PageComponentProps } from './flowTypes';
 
-class Page extends Component {
+class Page extends React.Component<void, PageComponentProps, void> {
   componentDidMount() {
     document.title = this.props.currentPage.title;
   }
@@ -22,28 +23,28 @@ class Page extends Component {
 
     // console.log(currentPage);
 
-    let pageRender = currentPage.body.map((element, index) => {
+    const pageRender = currentPage.body.map((element) => {
       switch (element.type) {
         case 'sideImage':
-          return <SideImage key={ index } { ...element } />;
+          return <SideImage key={element.id} {...element} />;
         case 'hero':
-          return <Hero key = { index } { ...element }/>;
+          return <Hero key={element.id} {...element} />;
         case 'header':
-          return <Header key = { index } { ...element }/>;
+          return <Header key={element.id} {...element} />;
         case 'centeredText':
-          return <CenteredText key = { index } { ...element }/>;
+          return <CenteredText key={element.id} {...element} />;
         case 'columns':
-          return <TextColumn key = { index } { ...element }/>;
+          return <TextColumn key={element.id} {...element} />;
         case 'sideEmbed':
-          return <SideEmbended key = { index } { ...element }/>;
+          return <SideEmbended key={element.id} {...element} />;
         case 'teamList':
-          return <TeamList key = { index } { ...element }/>;
+          return <TeamList key={element.id} {...element} />;
         case 'masonry':
-          return <MasonryComponent key = { index } { ...element }/>;
+          return <MasonryComponent key={element.id} {...element} />;
         case 'richtext':
-          return <RichTextField key = { index } { ...element }/>;
+          return <RichTextField key={element.id} {...element} />;
         default:
-          return <div key={ index }>Component not available</div>;
+          return <div key={element.id} >Component not available</div>;
       }
     });
 
@@ -60,13 +61,13 @@ class Page extends Component {
     //     case sideImage:
     //     return{
     //       <SideImage ... element/>
-    //     }
-    //   }
+    //    }
+    //  }
     // ));
 
     return (
-      <div className = 'page'>
-        { pageRender }
+      <div className='page'>
+        { pageRender}
       </div>
     );
   }
