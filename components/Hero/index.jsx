@@ -1,9 +1,11 @@
 // @flow
 import * as React from 'react';
 import inViewport from 'in-viewport';
-import type { BlockComponentProps } from '../../flowTypes';
+
+import CTAComponent from '../CTA';
 import type { HeroBlock } from '../../flowTypes/blocks';
 import type { ThumbedImageField } from '../../flowTypes/fields';
+import type { BlockComponentProps } from '../../flowTypes/pages';
 
 type State = {
   slide: boolean,
@@ -52,16 +54,6 @@ class Hero extends React.Component<void, BlockComponentProps, State> {
     const value: HeroBlock = this.props.value;
     this.watcher = inViewport(this.hero, this.visible);
 
-    let cta = '-none';
-    if (value.cta.text !== '') {
-      cta = '-show';
-    }
-
-    let extraCta = '-none';
-    if (value.extra_cta.text !== '') {
-      extraCta = '-show';
-    }
-
     let columns = '-one-column';
     if ((value.form !== 'none') || (value.image != null)) {
       columns = '-two-column';
@@ -97,17 +89,11 @@ class Hero extends React.Component<void, BlockComponentProps, State> {
             <div className='paragraph'>
               <p>{value.paragraph}</p>
             </div>
-            <div className={`cta-container${cta}`}>
-              <a href={value.cta.link}>
-                <div className={value.cta.breed + cta}>
-                  <span>{ value.cta.text}</span>
-                </div>
-              </a>
-              <a href={value.extra_cta.link}>
-                <div className={value.extra_cta.breed + extraCta}>
-                  <span>{value.extra_cta.text}</span>
-                </div>
-              </a>
+            <div
+              className={`cta-container${value.cta.text || value.extra_cta.text ? '-show' : '-hide'}`}
+            >
+              <CTAComponent {...value.cta} toPage={this.props.toPage} />
+              <CTAComponent {...value.extra_cta} toPage={this.props.toPage} />
             </div>
           </div>
           <div className={`container${columns}`}>

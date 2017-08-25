@@ -1,7 +1,9 @@
 // @flow
 import * as React from 'react';
 import inViewport from 'in-viewport';
-import type { BlockComponentProps } from '../../flowTypes';
+
+import CTAComponent from '../CTA';
+import type { BlockComponentProps } from '../../flowTypes/pages';
 import type { SideImageBlock } from '../../flowTypes/blocks';
 import type { ThumbedImageField } from '../../flowTypes/fields';
 
@@ -14,7 +16,6 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
   constructor(props: BlockComponentProps) {
     super(props);
     (this: any).visible = this.visible.bind(this);
-    (this: any).colorUp = this.colorUp.bind(this);
     (this: any).renderImage = this.renderImage.bind(this);
   }
 
@@ -26,8 +27,6 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
   fadeUp: HTMLDivElement;
   image: HTMLImageElement;
   watcher: ?any;
-  ctaAnimation: HTMLDivElement;
-  buttonWatcher: ?any;
 
   visible() {
     if (this.fadeUp) {
@@ -48,13 +47,6 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
 
     if (this.watcher) {
       this.watcher.dispose();
-    }
-  }
-
-  colorUp() {
-    this.ctaAnimation.style.boxShadow = 'inset 0 -100px 0 0 #31302B';
-    if (this.buttonWatcher) {
-      this.buttonWatcher.dispose();
     }
   }
 
@@ -82,11 +74,6 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
   render() {
     const value: SideImageBlock = this.props.value;
     this.watcher = inViewport(this.fadeUp, this.visible);
-    this.buttonWatcher = inViewport(this.ctaAnimation, this.colorUp);
-
-    const cta = value.cta.text !== ''
-      ? '-show'
-      : '-none';
 
     const menu = (this.state.slide !== this.props.slide && window.innerWidth >= 1024)
       ? 'menu-open'
@@ -117,15 +104,7 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
             <h5>{value.subtitle}</h5>
             <h2>{value.title}</h2>
             <p>{value.paragraph}</p>
-            <div className={`cta-container ${cta}`}>
-              <div
-                className={`${value.cta.breed}${cta}`}
-                ref={((ctaAn) => { this.ctaAnimation = ctaAn; })}
-              >
-                <span className='cta-text'>{value.cta.text}</span>
-                <span>{value.cta.text}</span>
-              </div>
-            </div>
+            <CTAComponent {...value.cta} toPage={this.props.toPage} />
           </div>
         </div>
       </div>

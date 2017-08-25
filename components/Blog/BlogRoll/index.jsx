@@ -1,12 +1,19 @@
 // @flow
 import * as React from 'react';
-import type { BlogRoll } from '../../../flowTypes';
+import inViewport from 'in-viewport';
+import type { BlogRoll } from '../../../flowTypes/pages';
 
 type State = {
   slide: boolean,
 };
 
 class BlogRollComponent extends React.Component<void, BlogRoll, State> {
+  constructor(props: BlogRoll) {
+    super(props);
+    (this: any).animation = this.animation.bind(this);
+    (this: any).visible = this.visible.bind(this);
+  }
+
   state = {
     slide: this.props.slide,
   };
@@ -15,25 +22,35 @@ class BlogRollComponent extends React.Component<void, BlogRoll, State> {
     document.title = this.props.title;
   }
 
+  fadeUp: HTMLDivElement;
+  header: HTMLDivElement;
+  watcher: ?any;
+  watcher2: ?any;
+
+  visible() {
+    if (this.fadeUp) {
+      this.fadeUp.style.animation = 'fadeUp 1s ease forwards';
+      this.fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
+    }
+    if (this.watcher) {
+      this.watcher.dispose();
+    }
+  }
+
+  animation() {
+    if (this.header) {
+      this.header.style.animation = 'fadeUp 1s ease forwards';
+      this.header.style.webkitAnimation = 'fadeUp 1s ease forwards';
+    }
+    if (this.watcher2) {
+      this.watcher2.dispose();
+    }
+  }
+
   render() {
     const { toPage, posts } = this.props;
-    const inViewport = require('in-viewport');
-    const inViewport2 = require('in-viewport');
-    const fadeUp = this.fadeUp;
-    const watcher = inViewport(fadeUp, visible);
-    const header = this.header;
-    const watcher2 = inViewport2(header, animation);
-
-    function visible() {
-      fadeUp.style.animation = 'fadeUp 1s ease forwards';
-      fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
-      watcher.dispose();
-    }
-
-    function animation() {
-      header.style.animation = 'fadeUp 1s ease forwards';
-      header.style.webkitAnimation = 'fadeUp 1s ease forwards';
-    }
+    this.watcher = inViewport(this.fadeUp, this.visible);
+    this.watcher2 = inViewport(this.header, this.animation);
 
     const miniPost = posts.map(element => (
       <div

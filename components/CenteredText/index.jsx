@@ -1,11 +1,33 @@
 // @flow
 import * as React from 'react';
-import type { BlockComponentProps } from '../../flowTypes';
+import inViewport from 'in-viewport';
+import CTAComponent from '../CTA';
+import type { BlockComponentProps } from '../../flowTypes/pages';
+import type { CenterTextBlock } from '../../flowTypes/blocks';
 import type { ThumbedImageField } from '../../flowTypes/fields';
 
 
-class CenteredText extends React.Component < void, BlockComponentProps, void > {
-  renderImage(image: ThumbedImageField) {
+class CenteredText extends React.Component<void, BlockComponentProps, void> {
+  constructor(props: BlockComponentProps) {
+    super(props);
+    (this: any).visible = this.visible.bind(this);
+    (this: any).renderImage = this.renderImage.bind(this);
+  }
+
+  centeredText: HTMLDivElement;
+  watcher: ?any;
+
+  visible() {
+    if (this.centeredText) {
+      this.centeredText.style.animation = 'fadeUp 1s ease forwards';
+      this.centeredText.style.webkitAnimation = 'fadeUp 1s ease forwards';
+    }
+    if (this.watcher) {
+      this.watcher.dispose();
+    }
+  }
+
+  renderImage(image?: ThumbedImageField) {
     if (image) {
       return (
         <picture>
@@ -20,25 +42,9 @@ class CenteredText extends React.Component < void, BlockComponentProps, void > {
   }
 
   render() {
-    const { value } = this.props;
-    const inViewport = require('in-viewport');
-    const inViewport2 = require('in-viewport');
-    const elem = this.centeredText;
-    const ctaAnimation = this.ctaAnimation;
-    const watcher = inViewport(elem, visible);
-    const buttonWatcher = inViewport2(ctaAnimation, colorUp);
+    const value: CenterTextBlock = this.props.value;
+    this.watcher = inViewport(this.centeredText, this.visible);
 
-    function visible() {
-      elem.style.animation = 'fadeUp 1s ease forwards';
-      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
-
-      watcher.dispose();
-    }
-
-    function colorUp() {
-      ctaAnimation.style.boxShadow = 'inset 0 -100px 0 0 #31302B';
-      buttonWatcher.dispose();
-    }
 
     const background = (value.decoration.background_image != null)
       ? {
@@ -49,11 +55,6 @@ class CenteredText extends React.Component < void, BlockComponentProps, void > {
         backgroundColor: `rgba(${value.decoration.background_color})`,
       };
 
-
-    let cta = '-none';
-    if (value.cta.text !== '') {
-      cta = '-show';
-    }
 
     return (
       <div
@@ -68,15 +69,7 @@ class CenteredText extends React.Component < void, BlockComponentProps, void > {
               <p>{value.paragraph}</p>
             </div>
             { this.renderImage(value.image) }
-            <div className={`cta-container ${cta}`}>
-              <div
-                className={value.cta.breed + cta}
-                ref={(ctaAn) => { this.ctaAnimation = ctaAn; }}
-              >
-                <span className='cta-text'>{value.cta.text}</span>
-                <span>{value.cta.text}</span>
-              </div>
-            </div>
+            <CTAComponent {...value.cta} toPage={this.props.toPage} />
           </div>
           <div className='division-rectangle' />
         </div>

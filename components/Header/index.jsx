@@ -1,83 +1,92 @@
-'use strict';
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
+import inViewport from 'in-viewport';
 
-class Header extends Component {
-  constructor(props) {
+import CTAComponent from '../CTA';
+import type { BlockComponentProps } from '../../flowTypes/pages';
+import type { HeaderBlock } from '../../flowTypes/blocks';
+import type { ThumbedImageField } from '../../flowTypes/fields';
+
+type State = {
+  slide: boolean,
+};
+
+class Header extends React.Component < void, BlockComponentProps, State > {
+  constructor(props: BlockComponentProps) {
     super(props);
-    this.state = {
-      slide: this.props.slide,
-    };
+    (this: any)
+    .visible = this.visible.bind(this);
+    (this: any)
+    .renderImage = this.renderImage.bind(this);
   }
 
-  renderImage() {
-    return (
-      <picture>
-        <source media = '(max-width:768px)' srcSet = { this.props.value.image.thumbs.xs }/>
-        <source media = '(max-width:1024px)' srcSet = { this.props.value.image.thumbs.sm }/>
-        <source media = '(min-width:1024px)' srcSet = { this.props.value.image.thumbs.md }/>
-        <img src = { this.props.value.image.thumbs.original }/>
-      </picture>
-    );
+  state = {
+    slide: this.props.slide,
+  };
+
+  fadeUp: HTMLDivElement;
+  watcher: ? any;
+
+  visible() {
+    if (this.fadeUp) {
+      this.fadeUp.style.animation = 'fadeUp 1s ease forwards';
+      this.fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
+    }
+    if (this.watcher) {
+      this.watcher.dispose();
+    }
+  }
+
+  renderImage(image?: ThumbedImageField) {
+    if (image) {
+      return (
+        <picture>
+          <source media='(max-width:768px)' srcSet={image.thumbs.xs} />
+          <source media='(max-width:1024px)' srcSet={image.thumbs.sm} />
+          <source media='(min-width:1024px)' srcSet={image.thumbs.md} />
+          <img src={image.thumbs.original} alt={image.title} />
+        </picture>
+      );
+    }
+    return null;
   }
 
   render() {
-    var inViewport = require('in-viewport');
-    var elem = this.fadeUp;
-    var watcher = inViewport(elem, visible);
-
-    function visible() {
-      elem.style.animation = 'fadeUp 1s ease forwards';
-      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
-
-      watcher.dispose();
-    }
-
-    let cta = '-none';
-    if (this.props.value.cta.text != '') {
-      cta = '-show';
-    }
+    const value: HeaderBlock = this.props.value;
+    this.watcher = inViewport(this.fadeUp, this.visible);
 
     /*checks if the menu is opened or closed and changes the class depending
     on the case */
-    let menu;
-    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
-      menu = 'header-menu-open';
-    } else {
-      menu = 'header-menu-close';
-    }
+    const menu = (this.state.slide !== this.props.slide && window.innerWidth >= 1024)
+      ? 'header-menu-open'
+      : 'header-menu-close';
 
-    let background;
-    if (this.props.value.decoration.background_image != null) {
-      background = {
-        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-        backgroundImage: 'url(' + this.props.value.decoration.background_image.thumbs.original + ')',
+    const background = (value.decoration.background_image != null)
+      ? {
+        backgroundColor: `rgba(${value.decoration.background_color})`,
+        backgroundImage: `url(${value.decoration.background_image.thumbs.original})`,
+      }
+      : {
+        backgroundColor: `rgba(${value.decoration.background_color})`,
       };
-    }else {
-      background = {
-        backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-      };
-    }
 
     return (
-      <div className = 'header-container fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp })}>
-        <div className = { 'header '  + menu } style = { background }>
-          <div className =  'container'>
+      <div
+        className='header-container fadeUp'
+        ref={(fadeUp) => { this.fadeUp = fadeUp; }}
+      >
+        <div className={`header ${menu}`} style={background}>
+          <div className='container'>
             <h5>{ this.props.value.subtitle }</h5>
             <h1>{ this.props.value.title }</h1>
             <p>{ this.props.value.paragraph }</p>
-            <div className = { 'cta-container' + cta }>
-              <a href = { this.props.value.cta.link }>
-                <div className = {this.props.value.cta.breed + cta}>
-                  <span>{this.props.value.cta.text}</span>
-                </div>
-              </a>
-            </div>
-            <div className = 'image'>
+            <CTAComponent {...this.props.value.cta} toPage={this.props.toPage} />
+
+            <div className='image'>
               { this.props.value.image != null ? this.renderImage() : null }
             </div>
           </div>
-          {/* <div className = 'division-rectangle'></div> */}
-          <div className = 'division-rectangle'></div>
+          <div className='division-rectangle' />
         </div>
       </div>
     );
