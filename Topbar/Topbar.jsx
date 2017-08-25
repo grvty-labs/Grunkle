@@ -49,6 +49,7 @@ class Topbar extends React.Component < void, TopbarProps, DState> {
         onClick={(element.id == null
           ? () => goToPage(element.url)
           : () => goToLink(element.id, element.url))}
+        role='link' tabIndex={0}
       >
         {element.title}
       </div>
