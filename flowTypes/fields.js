@@ -20,7 +20,10 @@ export type DecorationField = {
 export type CTAField = {
   text?: string,
   breed: string,
-  page?: number,
+  page?: {
+    id: number,
+    url: string,
+  },
   link?: string,
   event?: string,
 };
