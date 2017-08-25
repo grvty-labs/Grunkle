@@ -4,14 +4,14 @@ import inViewport from 'in-viewport';
 
 // import CTAComponent from '../CTA';
 import type { BlockComponentProps } from '../../flowTypes/pages';
-import type { FeatureBlock } from '../../flowTypes/blocks';
+import type { TotemsBlock } from '../../flowTypes/blocks';
 
 type State = {
   show: boolean,
   slide: boolean,
 };
 
-class Feature extends React.Component<void, BlockComponentProps, State> {
+class Totems extends React.Component<void, BlockComponentProps, State> {
   constructor(props: BlockComponentProps) {
     super(props);
     (this: any).fadeUp = this.fadeUp.bind(this);
@@ -37,17 +37,15 @@ class Feature extends React.Component<void, BlockComponentProps, State> {
   }
 
   render() {
-    const value: FeatureBlock = this.props.value;
+    const value: TotemsBlock = this.props.value;
 
-    const columns = value.features.map((element, i) => (
+    const columns = value.totems.map((element, i) => (
       <div className='column' key={i}>
         <img src={element.svg.url} alt={element.svg.title} />
-        <h3>{element.title}</h3>
-        <p>{element.paragraph}</p>
       </div>
     ));
 
-    let columnNumber = value.features.length;
+    let columnNumber = value.totems.length;
     let width;
     if (columnNumber >= 4 && window.innerWidth > 1024) {
       width = {
@@ -82,4 +80,4 @@ class Feature extends React.Component<void, BlockComponentProps, State> {
   }
 }
 
-export default Feature;
+export default Totems;

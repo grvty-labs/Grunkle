@@ -8,32 +8,33 @@ import type { HeaderBlock } from '../../flowTypes/blocks';
 import type { ThumbedImageField } from '../../flowTypes/fields';
 
 type State = {
+  show: boolean,
   slide: boolean,
 };
 
 class Header extends React.Component < void, BlockComponentProps, State > {
   constructor(props: BlockComponentProps) {
     super(props);
-    (this: any)
-    .visible = this.visible.bind(this);
-    (this: any)
-    .renderImage = this.renderImage.bind(this);
+    (this: any).fadeUp = this.fadeUp.bind(this);
+    (this: any).renderImage = this.renderImage.bind(this);
   }
 
   state = {
+    show: false,
     slide: this.props.slide,
   };
 
-  fadeUp: HTMLDivElement;
+  componentDidMount() {
+    this.watcher = inViewport(this.div, this.fadeUp);
+  }
+
+  div: HTMLDivElement;
   watcher: ? any;
 
-  visible() {
-    if (this.fadeUp) {
-      this.fadeUp.style.animation = 'fadeUp 1s ease forwards';
-      this.fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
-    }
+  fadeUp() {
     if (this.watcher) {
       this.watcher.dispose();
+      this.setState({ show: true });
     }
   }
 
@@ -53,9 +54,8 @@ class Header extends React.Component < void, BlockComponentProps, State > {
 
   render() {
     const value: HeaderBlock = this.props.value;
-    this.watcher = inViewport(this.fadeUp, this.visible);
 
-    /*checks if the menu is opened or closed and changes the class depending
+    /* checks if the menu is opened or closed and changes the class depending
     on the case */
     const menu = (this.state.slide !== this.props.slide && window.innerWidth >= 1024)
       ? 'header-menu-open'
@@ -72,18 +72,18 @@ class Header extends React.Component < void, BlockComponentProps, State > {
 
     return (
       <div
-        className='header-container fadeUp'
-        ref={(fadeUp) => { this.fadeUp = fadeUp; }}
+        className={`header-container fadeUp ${this.state.show ? 'play' : ''}`}
+        ref={(fadeUp) => { this.div = fadeUp; }}
       >
         <div className={`header ${menu}`} style={background}>
           <div className='container'>
-            <h5>{ this.props.value.subtitle }</h5>
-            <h1>{ this.props.value.title }</h1>
-            <p>{ this.props.value.paragraph }</p>
-            <CTAComponent {...this.props.value.cta} toPage={this.props.toPage} />
+            <h5>{ value.subtitle }</h5>
+            <h1>{ value.title }</h1>
+            <p>{ value.paragraph }</p>
+            <CTAComponent {...value.cta} toPage={this.props.toPage} />
 
             <div className='image'>
-              { this.props.value.image != null ? this.renderImage() : null }
+              { value.image != null ? this.renderImage() : null }
             </div>
           </div>
           <div className='division-rectangle' />

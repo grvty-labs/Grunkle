@@ -1,4 +1,8 @@
 // @flow
+export type SocialLinkField = {
+  link: string,
+};
+
 export type ThumbedImageField = {
   id: number,
   title: string,
@@ -26,4 +30,24 @@ export type CTAField = {
   },
   link?: string,
   event?: string,
+};
+
+export type ColumnField = {
+  title: string,
+  paragraph: string,
+  image?: ThumbedImageField,
+};
+
+export type MasonryImageField = {
+  title: string,
+  info: string,
+  image: ThumbedImageField,
+};
+
+export type MemberField = {
+  name: string,
+  description: string,
+  position: string,
+  photograph: ThumbedImageField,
+  social: Array<SocialLinkField>,
 };

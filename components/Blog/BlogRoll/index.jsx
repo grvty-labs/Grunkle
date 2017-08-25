@@ -1,71 +1,43 @@
 // @flow
 import * as React from 'react';
 import inViewport from 'in-viewport';
+
+import PostPreview from './postPreview';
 import type { BlogRoll } from '../../../flowTypes/pages';
 
 type State = {
   slide: boolean,
+  show: boolean,
 };
 
 class BlogRollComponent extends React.Component<void, BlogRoll, State> {
   constructor(props: BlogRoll) {
     super(props);
-    (this: any).animation = this.animation.bind(this);
-    (this: any).visible = this.visible.bind(this);
+    (this: any).fadeUp = this.fadeUp.bind(this);
   }
 
   state = {
     slide: this.props.slide,
+    show: false,
   };
 
   componentDidMount() {
     document.title = this.props.title;
+    this.watcher = inViewport(this.div, this.fadeUp);
   }
 
-  fadeUp: HTMLDivElement;
-  header: HTMLDivElement;
+  div: HTMLDivElement;
   watcher: ?any;
-  watcher2: ?any;
 
-  visible() {
-    if (this.fadeUp) {
-      this.fadeUp.style.animation = 'fadeUp 1s ease forwards';
-      this.fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
-    }
+  fadeUp() {
     if (this.watcher) {
       this.watcher.dispose();
-    }
-  }
-
-  animation() {
-    if (this.header) {
-      this.header.style.animation = 'fadeUp 1s ease forwards';
-      this.header.style.webkitAnimation = 'fadeUp 1s ease forwards';
-    }
-    if (this.watcher2) {
-      this.watcher2.dispose();
+      this.setState({ show: true });
     }
   }
 
   render() {
     const { toPage, posts } = this.props;
-    this.watcher = inViewport(this.fadeUp, this.visible);
-    this.watcher2 = inViewport(this.header, this.animation);
-
-    const miniPost = posts.map(element => (
-      <div
-        className='mini-post fadeUp' key={element.id}
-        ref={(fUp) => { this.fadeUp = fUp; }}
-        onClick={() => toPage(element.id, element.url)}
-        role='link' tabIndex={0}
-      >
-        <h5>BY {element.author.first_name}</h5>
-        <h2>{element.title}</h2>
-        { element.tags.map((tag, i) => (
-          <span key={i}>#{tag}</span>
-        ))}
-      </div>
-    ));
 
     /* checks if the menu is opened or closed and changes the class depending
     on the case */
@@ -76,10 +48,10 @@ class BlogRollComponent extends React.Component<void, BlogRoll, State> {
     return (
       <div className='blog-roll'>
         <div
-          className='header-container fadeUp'
-          ref={(h) => { this.header = h; }}
+          className={`div-container fadeUp ${this.state.show ? 'play' : ''}`}
+          ref={(h) => { this.div = h; }}
         >
-          <div className='header'>
+          <div className='div'>
             <div className='container'>
               <h5>{this.props.subtitle}</h5>
               <h2>{this.props.title}</h2>
@@ -93,7 +65,11 @@ class BlogRollComponent extends React.Component<void, BlogRoll, State> {
         </div>
         <div className='roll'>
           <div className='container'>
-            {miniPost}
+            {
+              posts.map(element => (
+                <PostPreview {...element} toPage={toPage} />
+              ))
+            }
           </div>
         </div>
       </div>

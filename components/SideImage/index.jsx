@@ -8,34 +8,36 @@ import type { SideImageBlock } from '../../flowTypes/blocks';
 import type { ThumbedImageField } from '../../flowTypes/fields';
 
 type State = {
+  show: boolean,
   slide: boolean,
 };
 
 class sideImage extends React.Component <void, BlockComponentProps, State > {
-
   constructor(props: BlockComponentProps) {
     super(props);
-    (this: any).visible = this.visible.bind(this);
+    (this: any).fadeUp = this.fadeUp.bind(this);
     (this: any).renderImage = this.renderImage.bind(this);
   }
 
   state = {
+    show: false,
     slide: this.props.slide,
   };
 
+  componentDidMount() {
+    this.watcher = inViewport(this.div, this.fadeUp);
+  }
+
   div: HTMLDivElement;
-  fadeUp: HTMLDivElement;
   image: HTMLImageElement;
   watcher: ?any;
 
-  visible() {
-    if (this.fadeUp) {
-      this.fadeUp.style.animation = 'fadeUp 1s ease forwards';
-      this.fadeUp.style.webkitAnimation = 'fadeUp 1s ease forwards';
-    }
-
-    if (this.image) {
+  fadeUp() {
+    if (this.watcher && this.image) {
       const img: HTMLImageElement = this.image.lastElementChild;
+      this.watcher.dispose();
+      this.setState({ show: true });
+
       const tempImg = new Image();
       tempImg.src = img.src;
       tempImg.onload = () => {
@@ -43,10 +45,6 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
         this.image.style.transition = 'all 1s ease';
         img.style.opacity = '1';
       };
-    }
-
-    if (this.watcher) {
-      this.watcher.dispose();
     }
   }
 
@@ -66,6 +64,7 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
     return (
       <div
         className='image-container'
+        ref={(img) => { this.image = img; }}
         style={{ backgroundImage: `url(${image.thumbs.original})` }}
       />
     );
@@ -73,7 +72,6 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
 
   render() {
     const value: SideImageBlock = this.props.value;
-    this.watcher = inViewport(this.fadeUp, this.visible);
 
     const menu = (this.state.slide !== this.props.slide && window.innerWidth >= 1024)
       ? 'menu-open'
@@ -87,9 +85,8 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
 
     return (
       <div
-        className={`sideImage ${inverse} ${value.inline ? ' inline' : ' not-inline'}`}
+        className={`sideImage ${inverse} ${value.inline ? 'inline' : 'not-inline'}`}
         style={{ backgroundColor: `rgba(${value.decoration.background_color})` }}
-        ref={(div) => { this.div = div; }}
       >
         <div className='column column-image'>
           {imageRender}
@@ -98,8 +95,8 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
 
         <div className='column column-text'>
           <div
-            className={`container-text fadeUp ${menu}`}
-            ref={((fUp) => { this.fadeUp = fUp; })}
+            className={`container-text fadeUp ${menu} ${this.state.show ? 'play' : ''}`}
+            ref={((fUp) => { this.div = fUp; })}
           >
             <h5>{value.subtitle}</h5>
             <h2>{value.title}</h2>

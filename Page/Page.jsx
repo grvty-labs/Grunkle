@@ -4,22 +4,22 @@ import SideImage from '../components/SideImage';
 import Hero from '../components/Hero';
 import Header from '../components/Header';
 import CenteredText from '../components/CenteredText';
-import TextColumn from '../components/TextColumn';
+import Columns from '../components/Columns';
 import SideEmbended from '../components/SideEmbedded';
 import TeamList from '../components/TeamList';
 import MasonryComponent from '../components/Masonry';
 // import Post from '../components/Posts/Post';
 // import Roll from '../components/Rolls/Roll';
 import RichTextField from '../components/RichTextField';
-import type { PageComponentProps } from './flowTypes';
+import type { PageComponentProps } from '../flowTypes';
 
 class Page extends React.Component<void, PageComponentProps, void> {
   componentDidMount() {
-    document.title = this.props.currentPage.title;
+    document.title = this.props.location.state.title;
   }
 
   render() {
-    const { currentPage } = this.props;
+    const currentPage = this.props.location.state;
 
     // console.log(currentPage);
 
@@ -34,7 +34,7 @@ class Page extends React.Component<void, PageComponentProps, void> {
         case 'centeredText':
           return <CenteredText key={element.id} {...element} />;
         case 'columns':
-          return <TextColumn key={element.id} {...element} />;
+          return <Columns key={element.id} {...element} />;
         case 'sideEmbed':
           return <SideEmbended key={element.id} {...element} />;
         case 'teamList':

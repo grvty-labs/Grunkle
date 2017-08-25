@@ -6,24 +6,32 @@ import type { BlockComponentProps } from '../../flowTypes/pages';
 import type { CenterTextBlock } from '../../flowTypes/blocks';
 import type { ThumbedImageField } from '../../flowTypes/fields';
 
+type State = {
+  show: boolean,
+};
 
-class CenteredText extends React.Component<void, BlockComponentProps, void> {
+class CenteredText extends React.Component<void, BlockComponentProps, State> {
   constructor(props: BlockComponentProps) {
     super(props);
-    (this: any).visible = this.visible.bind(this);
+    (this: any).fadeUp = this.fadeUp.bind(this);
     (this: any).renderImage = this.renderImage.bind(this);
   }
 
-  centeredText: HTMLDivElement;
+  state = {
+    show: false,
+  };
+
+  componentDidMount() {
+    this.watcher = inViewport(this.div, this.fadeUp);
+  }
+
+  div: HTMLDivElement;
   watcher: ?any;
 
-  visible() {
-    if (this.centeredText) {
-      this.centeredText.style.animation = 'fadeUp 1s ease forwards';
-      this.centeredText.style.webkitAnimation = 'fadeUp 1s ease forwards';
-    }
+  fadeUp() {
     if (this.watcher) {
       this.watcher.dispose();
+      this.setState({ show: true });
     }
   }
 
@@ -43,8 +51,6 @@ class CenteredText extends React.Component<void, BlockComponentProps, void> {
 
   render() {
     const value: CenterTextBlock = this.props.value;
-    this.watcher = inViewport(this.centeredText, this.visible);
-
 
     const background = (value.decoration.background_image != null)
       ? {
@@ -58,8 +64,8 @@ class CenteredText extends React.Component<void, BlockComponentProps, void> {
 
     return (
       <div
-        className='centered-text fadeUp' style={background}
-        ref={(centeredText) => { this.centeredText = centeredText; }}
+        className={`centered-text fadeUp ${this.state.show ? 'play' : ''}`}
+        style={background} ref={(div) => { this.div = div; }}
       >
         <div className='centered-text-container'>
           <div className='container'>

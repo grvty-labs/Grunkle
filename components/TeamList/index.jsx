@@ -1,153 +1,167 @@
-'use strict';
-import React, { Component } from 'react';
-import { TEAM_LIST_GROUPSIZE } from '../../../../constants';
+// @flow
+import * as React from 'react';
+import inViewport from 'in-viewport';
 
-class Team extends Component {
-  constructor(props) {
+import type { BlockComponentProps } from '../../flowTypes/pages';
+import type { TeamListBlock } from '../../flowTypes/blocks';
+import type { MemberField, ThumbedImageField } from '../../flowTypes/fields';
+
+// import { TEAM_LIST_GROUPSIZE } from '../../../../constants';
+
+type Props = {
+  modal: boolean,
+  slide: boolean,
+  toggleModal: Function,
+} & BlockComponentProps;
+
+type State = {
+  element: MemberField | null,
+  slide: boolean,
+  show: boolean,
+};
+
+class Team extends React.Component<void, Props, State> {
+  constructor(props: Props) {
     super(props);
-    this.showInformation = this.showInformation.bind(this);
-    this.renderMemberInformation = this.renderMemberInformation.bind(this);
-    this.hideInformation = this.hideInformation.bind(this);
-    this.state = {
-      id: null,
-      element: null,
-      slide: this.props.slide,
-    };
+    (this: any).fadeUp = this.fadeUp.bind(this);
+    (this: any).renderImage = this.renderImage.bind(this);
+    (this: any).renderMember = this.renderMember.bind(this);
+    (this: any).renderMemberModal = this.renderMemberModal.bind(this);
+    (this: any).showInformation = this.showInformation.bind(this);
   }
 
-  showInformation(element, id) {
-    this.setState({
-      element: element,
-      id: id,
-    });
+  state = {
+    element: null,
+    slide: this.props.slide,
+    show: false,
+  };
+
+  componentDidMount() {
+    this.watcher = inViewport(this.div, this.fadeUp);
   }
 
-  hideInformation() {
-    this.setState({
-      element: null,
-      id: null,
-    });
+  div: HTMLDivElement;
+  watcher: ?any;
+
+  fadeUp() {
+    if (this.watcher) {
+      this.watcher.dispose();
+      this.setState({ show: true });
+    }
   }
 
-  renderMemberInformation(element) {
-    return (
-      <div className = 'member-information'>
-        <div className = 'svg'></div>
-        <div className = 'information'>
-          <div className = 'close'>
-            <p onClick = { () => {
-              this.hideInformation();
-              this.props.toggleModal();
-            }
-            }>X</p>
-          </div>
-          <picture className = 'member-photo'>
-            <source media = '(max-width:768px)' srcSet = { element.photograph.thumbs.xs }/>
-            <source media = '(max-width:1024px)' srcSet = { element.photograph.thumbs.sm }/>
-            <source media = '(min-width:1024px)' srcSet = { element.photograph.thumbs.md }/>
-            <img src = { element.photograph.thumbs.original }/>
-          </picture>
-          <div className = 'name-container'>
-            <h3>{ element.name }</h3>
-            <p className = 'position'>{ element.position }</p>
-            <div className = 'rectangle'></div>
-            <p className = 'description'>{ element.description }</p>
+  showInformation(element: MemberField) {
+    this.setState({ element });
+  }
+
+  renderImage(image?: ThumbedImageField) {
+    if (image) {
+      return (
+        <picture className='member-photo'>
+          <source media='(max-width:768px)' srcSet={image.thumbs.xs} />
+          <source media='(max-width:1024px)' srcSet={image.thumbs.sm} />
+          <source media='(min-width:1024px)' srcSet={image.thumbs.md} />
+          <img src={image.thumbs.original} alt={image.title} />
+        </picture>
+      );
+    }
+    return null;
+  }
+
+  // TODO: Render social links
+  renderMemberModal(member: MemberField | null) {
+    if (member) {
+      return (
+        <div className='member-information'>
+          <div className='svg' />
+          <div className='information'>
+            <div className='close'>
+              <div
+                role='button' tabIndex={0}
+                onClick={this.props.toggleModal}
+              >
+                X
+              </div>
+            </div>
+            {this.renderImage(member.photograph)}
+            <div className='name-container'>
+              <h3>{ member.name }</h3>
+              <p className='position'>{member.position}</p>
+              <div className='rectangle' />
+              <p className='description'>{member.description}</p>
+            </div>
           </div>
         </div>
+      );
+    }
+    return null;
+  }
+
+  renderMember(member: MemberField, index: number) {
+    const photograph: ThumbedImageField = member.photograph;
+    return (
+      <div
+        key={index} className='member-container'
+        onClick={() => {
+          this.showInformation(member);
+          this.props.toggleModal();
+        }}
+        role='button' tabIndex={0}
+      >
+        <picture className='member-photo'>
+          <source media='(max-width:1440px)' srcSet={photograph.thumbs.sm} />
+          <img src={photograph.thumbs.original} alt={photograph.title} />
+        </picture>
+        <span>{member.name}</span>
       </div>
     );
   }
 
   render() {
-    var inViewport = require('in-viewport');
-    var elem = this.fadeUp;
-    var watcher = inViewport(elem, visible);
+    const value: TeamListBlock = this.props.value;
 
-    function visible() {
-      elem.style.animation = 'fadeUp 1s ease forwards';
-      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+    const divider = ~~(value.members.length / 3);
+    const firstColumn = value.members.map(this.renderMember);
+    const secondColumn = firstColumn.splice(0, divider);
+    const thirdColumn = firstColumn.splice(0, divider);
 
-      watcher.dispose();
-    }
-
-    let background = {
-      backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-    };
-
-    let team = this.props.value.members.map((element, index) => (
-      <div key = { index } className ='member-container'>
-        <picture className = 'member-photo' onClick = {() =>
-          {
-            this.showInformation(element, index); this.props.toggleModal();
-          }
-        }>
-        <source media = '(max-width:1440px)' srcSet = { element.photograph.thumbs.sm }/>
-        <img src = { element.photograph.thumbs.original }/>
-      </picture>
-      <span>{ element.name }</span>
-    </div>
-  ));
-
-    let divider = ~~(this.props.value.members.length / 3);
-    let firstColumn = team;
-    let secondColumn = firstColumn.splice(0, divider);
-    let thirdColumn = firstColumn.splice(0, divider);
-
-    /*checks if the menu is opened or closed and changes the class depending
+    /* checks if the menu is opened or closed and changes the class depending
     on the case */
-    let menu;
-    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
-      menu = 'menu-open';
-    } else {
-      menu = 'menu-close';
-    }
-
-    //  div with n number of elements
-    // .reduce((r, element, index) => {
-    //       index % aux === 0 && r.push([]);
-    //       r[r.length - 1].push(element);
-    //       return r;
-    //     }, []).map((rowContent, index) => (
-    //       <div className='row' key={ index }>
-    //         <div className = 'information'>
-    //           { parseInt(this.state.id / 3) == index && this.state.showInformation == true ?
-    //             this.renderMemberInformation(this.state.element)
-    //             : null }
-    //         </div>
-    //         <div className = 'member-photos'>
-    //           { rowContent }
-    //         </div>
-    //       </div>
-    //     ));
+    const menu = (this.state.slide !== this.props.slide && window.innerWidth >= 1024)
+      ? 'menu-open'
+      : 'menu-close';
 
     return (
-      <div className = 'team-list' style = { background }>
-        <div className = 'header-container fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
-          <div className = 'header'>
-            <div className = 'container'>
-              <h5>{ this.props.value.subtitle }</h5>
-              <h2>{ this.props.value.title }</h2>
-              <p>{ this.props.value.paragraph }</p>
+      <div
+        className='team-list'
+        style={{ backgroundColor: `rgba(${value.decoration.background_color})` }}
+      >
+        <div
+          className={`header-container fadeUp ${this.state.show ? 'play' : ''}`}
+          ref={(fadeUp) => { this.div = fadeUp; }}
+        >
+          <div className='header'>
+            <div className='container'>
+              <h5>{value.subtitle}</h5>
+              <h2>{value.title}</h2>
+              <p>{value.paragraph}</p>
             </div>
-            <div className = 'division-rectangle'></div>
+            <div className='division-rectangle' />
           </div>
         </div>
-        <div className = {'team ' + menu}>
-          <div className = {'left-column column ' + menu }>
+        <div className={`team ${menu} fadeUp ${this.state.show ? 'play' : ''}`}>
+          <div className={`left-column column ${menu}`}>
             { secondColumn}
           </div>
-          <div className = {'middle-column column ' + menu}>
+          <div className={`middle-column column ${menu}`}>
             { firstColumn }
           </div>
-          <div className = {'right-column column ' + menu}>
+          <div className={`right-column column ${menu}`}>
             { thirdColumn }
           </div>
         </div>
-        <div className = {'modal' + (this.props.modal
-          ? '-show' : '-hidden')}>
-          {this.props.modal ?
-            this.renderMemberInformation(this.state.element)
-            : null }
+        <div className={`modal ${this.props.modal ? 'show' : 'hidden'}`}>
+          {this.renderMemberModal(this.state.element)}
         </div>
       </div>
     );

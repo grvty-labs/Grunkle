@@ -8,31 +8,33 @@ import type { ThumbedImageField } from '../../flowTypes/fields';
 import type { BlockComponentProps } from '../../flowTypes/pages';
 
 type State = {
+  show: boolean,
   slide: boolean,
 };
 
 class Hero extends React.Component<void, BlockComponentProps, State> {
   constructor(props: BlockComponentProps) {
     super(props);
+    (this: any).fadeUp = this.fadeUp.bind(this);
     (this: any).renderImage = this.renderImage.bind(this);
-    (this: any).visible = this.visible.bind(this);
   }
 
   state = {
     slide: this.props.slide,
+    show: false,
   };
 
-  hero: HTMLDivElement;
+  componentDidMount() {
+    this.watcher = inViewport(this.div, this.fadeUp);
+  }
+
+  div: HTMLDivElement;
   watcher: ?any;
 
-  visible() {
-    if (this.hero) {
-      this.hero.style.animation = 'fadeUp 1s ease forwards';
-      this.hero.style.webkitAnimation = 'fadeUp 1s ease forwards';
-    }
-
+  fadeUp() {
     if (this.watcher) {
       this.watcher.dispose();
+      this.setState({ show: true });
     }
   }
 
@@ -52,7 +54,6 @@ class Hero extends React.Component<void, BlockComponentProps, State> {
 
   render() {
     const value: HeroBlock = this.props.value;
-    this.watcher = inViewport(this.hero, this.visible);
 
     let columns = '-one-column';
     if ((value.form !== 'none') || (value.image != null)) {
@@ -79,8 +80,8 @@ class Hero extends React.Component<void, BlockComponentProps, State> {
 
     return (
       <div
-        className='hero fadeUp' style={background}
-        ref={(hero) => { this.hero = hero; }}
+        className={`hero fadeUp ${this.state.show ? 'play' : ''}`}
+        style={background} ref={(hero) => { this.div = hero; }}
       >
         <div className={`hero-container ${menu}`}>
           <div className={`container${columns}`}>

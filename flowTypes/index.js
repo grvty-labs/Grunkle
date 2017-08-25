@@ -32,12 +32,20 @@ export type TopbarProps = {
   home: TopbarHomeLink,
 };
 
+type LocationState =
+  | BlocksPage
+  | BlogRoll
+  | BlogPost
+  | CaseRoll
+  | CaseStudy
+  | HomePage;
+
 export type LocationProps = {
   hash: string,
   key: string,
   pathname: string,
   search: string,
-  state: BlocksPage | BlogRoll | BlogPost | CaseRoll | CaseStudy | HomePage,
+  state: LocationState,
 };
 
 export type PageComponentProps = {

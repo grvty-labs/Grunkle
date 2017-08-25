@@ -1,41 +1,60 @@
-'use strict';
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
+import inViewport from 'in-viewport';
 
-class RichTextField extends Component{
-  constructor(props) {
+type Props = {
+  value: string,
+  slide: boolean,
+};
+
+type State = {
+  show: boolean,
+  slide: boolean,
+};
+
+class RichTextField extends React.Component<void, Props, State> {
+  constructor(props: Props) {
     super(props);
-    this.state = {
-      slide: this.props.slide,
-    };
+    (this: any).fadeUp = this.fadeUp.bind(this);
+  }
+
+  state = {
+    show: false,
+    slide: this.props.slide,
+  };
+
+  componentDidMount() {
+    this.watcher = inViewport(this.div, this.fadeUp);
+  }
+
+  div: HTMLDivElement;
+  watcher: ?any;
+
+  fadeUp() {
+    if (this.watcher) {
+      this.watcher.dispose();
+      this.setState({ show: true });
+    }
   }
 
   render() {
-    var inViewport = require('in-viewport');
-    var elem = this.fadeUp;
-    var watcher = inViewport(elem, visible);
-
-    function visible() {
-      elem.style.animation = 'fadeUp 1s ease forwards';
-      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
-
-      watcher.dispose();
-    }
-    /*checks if the menu is opened or closed and changes the class depending
+    /* checks if the menu is opened or closed and changes the class depending
     on the case */
-    let menu;
-    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
-      menu = 'menu-open';
-    } else {
-      menu = 'menu-close';
-    }
+    const menu = (this.state.slide !== this.props.slide && window.innerWidth >= 1024)
+      ? 'menu-open'
+      : 'menu-close';
 
     return (
-      <div className = 'rich-text-field fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
-          <div className = { 'container ' + menu }>
-            <div className = 'text'
-              dangerouslySetInnerHTML={{ __html: this.props.value }}>
-            </div>
-          </div>
+      <div
+        className={`rich-text-field fadeUp ${this.state.show ? 'play' : ''}`}
+        ref={(fadeUp) => { this.div = fadeUp; }}
+      >
+        <div className={`container ${menu}`}>
+          <div
+            className='text'
+            dangerouslySetInnerHTML={{ __html: this.props.value }}
+          />
+        </div>
       </div>
     );
   }

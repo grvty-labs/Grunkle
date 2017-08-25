@@ -1,79 +1,74 @@
-'use strict';
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
+import inViewport from 'in-viewport';
 
-class SideEmbedded extends Component {
-  constructor(props) {
+import CTAComponent from '../CTA';
+import type { BlockComponentProps } from '../../flowTypes/pages';
+import type { SideEmbeddedBlock } from '../../flowTypes/blocks';
+
+type State = {
+  slide: boolean,
+  show: boolean,
+};
+
+class SideEmbedded extends React.Component<void, BlockComponentProps, State> {
+  constructor(props: BlockComponentProps) {
     super(props);
-    this.state = {
-      slide: this.props.slide,
-    };
+    (this: any).fadeUp = this.fadeUp.bind(this);
+  }
+
+  state = {
+    slide: this.props.slide,
+    show: false,
+  };
+
+  componentDidMount() {
+    this.watcher = inViewport(this.div, this.fadeUp);
+  }
+
+  div: HTMLDivElement;
+  watcher: ?any;
+
+  fadeUp() {
+    if (this.watcher) {
+      this.watcher.dispose();
+      this.setState({ show: true });
+    }
   }
 
   render() {
-    var inViewport = require('in-viewport');
-    var inViewport2 = require('in-viewport');
-    var elem = this.fadeUp;
-    let ctaAnimation = this.ctaAnimation;
-    var watcher = inViewport(elem, visible);
-    var buttonWatcher = inViewport2(ctaAnimation, colorUp);
+    const value: SideEmbeddedBlock = this.props.value;
 
-    function visible() {
-      elem.style.animation = 'fadeUp 1s ease forwards';
-      elem.style.webkitAnimation = 'fadeUp 1s ease forwards';
+    const side = (this.props.value.side === 'left')
+      ? 'left'
+      : 'right';
 
-      watcher.dispose();
-    }
-
-    function colorUp() {
-      ctaAnimation.style.boxShadow = 'inset 0 -100px 0 0 #31302B';
-      buttonWatcher.dispose();
-    }
-
-    let side;
-    if (this.props.value.side == 'left') {
-      side = 'left';
-    }else if (this.props.value.side == 'right') {
-      side = 'right';
-    }
-
-    let cta = '-none';
-    if (this.props.value.cta.text != '') {
-      cta = '-show';
-    }
-
-    let background = {
-      backgroundColor: 'rgba(' + this.props.value.decoration.background_color + ')',
-    };
-
-    /*checks if the menu is opened or closed and changes the class depending
+    /* checks if the menu is opened or closed and changes the class depending
     on the case */
-    let menu;
-    if (this.state.slide != this.props.slide && window.innerWidth >= 1024) {
-      menu = 'menu-open';
-    } else {
-      menu = 'menu-close';
-    }
-
-    var videoid = this.props.value.embed.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+    const menu = (this.state.slide !== this.props.slide && window.innerWidth >= 1024)
+      ? 'menu-open'
+      : 'menu-close';
 
     return (
-      <div className = 'sideEmbed' style = { background }>
-        <div className = {'container ' + side }>
-          <div className = 'column video'>
-            <embed src = { 'http://youtube.com/embed/' + videoid[1] }/>
-          </div>
-          <div className = 'column fadeUp' ref = {(fadeUp => { this.fadeUp = fadeUp; })}>
-            <div className = { 'container-text ' + menu }>
-              <h5>{ this.props.value.subtitle }</h5>
-              <h2>{ this.props.value.title }</h2>
-              <p>{ this.props.value.paragraph }</p>
-              <div className = { 'cta-container' + cta }>
-                <div className = {this.props.value.cta.breed + cta}
-                  ref = {(ctaAnimation => { this.ctaAnimation = ctaAnimation;})}>
-                  <span className = 'cta-text'>{this.props.value.cta.text}</span>
-                  <span>{this.props.value.cta.text}</span>
-                </div>
-              </div>
+      <div
+        className='sideEmbed'
+        style={{ backgroundColor: `rgba(${value.decoration.background_color})` }}
+      >
+        <div className={`container ${side}`}>
+          <div
+            className='column video'
+            style={{ backgroundImage: `url(${value.embed.thumbnail_url})` }}
+            dangerouslySetInnerHTML={{ __html: value.embed.html }}
+          />
+          <div
+            className={`column fadeUp ${this.state.show ? 'play' : ''}`}
+            ref={(div) => { this.div = div; }}
+          >
+            <div className={`container-text ${menu}`}>
+              <h5>{value.subtitle}</h5>
+              <h2>{value.title}</h2>
+              <p>{value.paragraph}</p>
+              <CTAComponent {...value.cta} toPage={this.props.toPage} />
             </div>
           </div>
         </div>
