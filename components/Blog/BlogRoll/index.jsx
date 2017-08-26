@@ -67,7 +67,7 @@ class BlogRollComponent extends React.Component<void, BlogRoll, State> {
           <div className='container'>
             {
               posts.map(element => (
-                <PostPreview {...element} toPage={toPage} />
+                <PostPreview key={element.id} {...element} toPage={toPage} />
               ))
             }
           </div>
