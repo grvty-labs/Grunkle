@@ -71,7 +71,7 @@ class Columns extends React.Component<void, BlockComponentProps, State> {
 
     return (
       <div
-        className='text-column fadeUp'
+        className={`text-column fadeUp ${this.state.show ? 'play' : ''}`}
         style={{ backgroundColor: `rgba(${value.decoration.background_color})` }}
         ref={(fadeUp) => { this.div = fadeUp; }}
       >
