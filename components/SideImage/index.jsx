@@ -29,22 +29,29 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
   }
 
   div: HTMLDivElement;
-  image: HTMLImageElement;
+  imaged: HTMLImageElement;
+  backgrounded: HTMLImageElement;
   watcher: ?any;
 
   fadeUp() {
-    if (this.watcher && this.image) {
-      const img: HTMLImageElement = this.image.lastElementChild;
+    if (this.watcher && this.imaged) {
+      const img: HTMLImageElement = this.imaged.lastElementChild;
       this.watcher.dispose();
       this.setState({ show: true });
 
       const tempImg = new Image();
       tempImg.src = img.src;
       tempImg.onload = () => {
-        this.image.style.backgroundColor = 'transparent';
-        this.image.style.transition = 'all 1s ease';
+        this.imaged.style.backgroundColor = 'transparent';
+        this.imaged.style.transition = 'all 1s ease';
         img.style.opacity = '1';
       };
+    }
+
+    if (this.watcher && this.backgrounded) {
+      this.watcher.dispose();
+      this.setState({ show: true });
+      this.backgrounded.style.opacity = '1';
     }
   }
 
@@ -53,7 +60,7 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
       return (
         <picture
           className={`image ${menu}`}
-          ref={(img) => { this.image = img; }}
+          ref={(img) => { this.imaged = img; }}
         >
           <source media='(max-width:1024px)' srcSet={image.thumbs.sm} />
           <source media='(min-width:1024px)' srcSet={image.thumbs.md} />
@@ -64,7 +71,7 @@ class sideImage extends React.Component <void, BlockComponentProps, State > {
     return (
       <div
         className='image-container'
-        ref={(img) => { this.image = img; }}
+        ref={(img) => { this.backgrounded = img; }}
         style={{ backgroundImage: `url(${image.thumbs.original})` }}
       />
     );

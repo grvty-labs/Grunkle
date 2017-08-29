@@ -1,4 +1,11 @@
 // @flow
+export type AnalyticsField = {
+  category?: string,
+  action?: string,
+  label?: string,
+  value?: string,
+};
+
 export type SocialLinkField = {
   link: string,
 };
@@ -22,14 +29,14 @@ export type DecorationField = {
 };
 
 export type CTAField = {
-  text?: string,
+  text: string,
   breed: string,
-  page?: {
+  page: {
     id: number,
     url: string,
   },
-  link?: string,
-  event?: string,
+  link: string,
+  analytics: AnalyticsField,
 };
 
 export type ColumnField = {

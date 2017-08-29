@@ -1,16 +1,18 @@
-'use strict';
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 
-class CompaniesRoll extends Component {
+class CompaniesRoll extends React.Component {
   componentDidMount() {
     document.title = this.props.title;
   }
 
   render() {
-    const miniPost = this.props.posts.map((element, index) => (
+    const {description, posts, subtitle, title, toPage} = this.props;
+    const miniPost = posts.map((element, index) => (
       <div
         className='mini-post' key={index}
-        onClick={() => this.props.toPage(element.id, element.url)}
+        onClick={() => toPage(element.id, element.url)}
+        role='link' tabIndex={0}
       >
         <h5>{element.subtitle}</h5>
         <h2>{element.title}</h2>
@@ -21,11 +23,11 @@ class CompaniesRoll extends Component {
       <div className='companies-roll'>
         <div className='header'>
           <div className='container'>
-            <h5>{this.props.subtitle}</h5>
-            <h2>{this.props.title}</h2>
+            <h5>{subtitle}</h5>
+            <h2>{title}</h2>
             <div
               className='description'
-              dangerouslySetInnerHTML={{ __html: this.props.description }}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           </div>
         </div>

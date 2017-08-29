@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
 import inViewport from 'in-viewport';
+import ReactGA from 'react-ga';
+
 import type { CTAField } from '../../flowTypes/fields';
 
 type State = {
@@ -43,7 +45,7 @@ class CTAComponent extends React.Component<void, Props, State> {
   }
 
   render() {
-    const { breed, text, page, toPage, link } = this.props;
+    const { analytics, breed, text, page, link, toPage } = this.props;
     const className = text !== '' ? '-show' : '-none';
     const linkAction = page
       ? (
@@ -51,7 +53,12 @@ class CTAComponent extends React.Component<void, Props, State> {
           className={`${breed}${className} ${this.state.show ? 'active' : ''}`}
           ref={((ctaAn) => { this.ctaWrap = ctaAn; })}
           role='link' tabIndex={0}
-          onClick={() => toPage(page.id, page.url)}
+          onClick={() => {
+            if (analytics.category && analytics.action) {
+              ReactGA.event(analytics);
+            }
+            toPage(page.id, page.url);
+          }}
         >
           <span className='cta-text'>{text}</span>
           <span>{text}</span>
@@ -61,6 +68,11 @@ class CTAComponent extends React.Component<void, Props, State> {
           className={`${breed}${className} ${this.state.show ? 'active' : ''}`}
           ref={((ctaAn) => { this.ctaWrap = ctaAn; })}
           target='_blank' href={link}
+          onClick={() => {
+            if (analytics.category && analytics.action) {
+              ReactGA.ga('send', 'event', analytics.category, analytics.action);
+            }
+          }}
         >
           <span className='cta-text'>{text}</span>
           <span>{text}</span>
