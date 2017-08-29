@@ -18,7 +18,7 @@ export type ThumbedImageField = {
 
 export type DecorationField = {
   background_color: string,
-  background_image?: ThumbedImageField,
+  background_image?: ThumbedImageField | null,
 };
 
 export type CTAField = {

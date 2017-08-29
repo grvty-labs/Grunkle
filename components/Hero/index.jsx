@@ -61,7 +61,7 @@ class Hero extends React.Component<void, BlockComponentProps, State> {
     }
 
     let background;
-    if (value.decoration.background_image != null) {
+    if (value.decoration.background_image) {
       background = {
         backgroundColor: `rgba(${value.decoration.background_color})`,
         backgroundImage: `url(${value.decoration.background_image.thumbs.original})`,
