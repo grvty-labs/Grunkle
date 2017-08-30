@@ -55,3 +55,8 @@ export type PageComponentProps = {
   modal: boolean,
   toggleModal: Function,
 };
+
+export type LoaderProps = {
+  loading: boolean,
+  toggleLoader: Function,
+}
