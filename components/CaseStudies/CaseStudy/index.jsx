@@ -37,8 +37,9 @@ class CaseStudy extends Component {
             <div className='division-rectangle' />
           </div>
         </div>
-        <div className='header-image'>
-          <img src={this.props.header_image.thumbs.original} />
+        <div className='header-image'
+          style={{ backgroundImage: 'url(' + this.props.header_image.thumbs.original + ')' }}
+        >
         </div>
         <div className='case-study-content'>
           <div className='container'>
