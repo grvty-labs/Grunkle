@@ -55,6 +55,10 @@ class Totems extends React.Component<void, BlockComponentProps, State> {
       width = {
         width: '800px',
       };
+    } else {
+      width = {
+        width: '100%',
+      }
     }
 
     /* checks if the menu is opened or closed and changes the class depending
@@ -67,10 +71,10 @@ class Totems extends React.Component<void, BlockComponentProps, State> {
 
     return (
       <div
-        className={`feature fadeUp ${this.state.show ? 'play' : ''}`}
+        className={`totemList fadeUp ${this.state.show ? 'play' : ''}`}
         ref={(fadeUp) => { this.div = fadeUp; }}
       >
-        <div className='feature-container'>
+        <div className='totemList-container'>
           <div className={`container ${menu}`} style={width}>
             { columns }
           </div>
